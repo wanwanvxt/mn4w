@@ -19,7 +19,7 @@ if [[ -d  "$dotfiles_dir" ]]; then
         fi
     done
 
-    rsync_cmd=(rsync -av --progress "${exclude_opts[@]}" "$dotfiles_dir" "$dest_dir")
+    rsync_cmd=(rsync -av --progress "${exclude_opts[@]}" "$dotfiles_dir/" "$dest_dir/")
 
     echo "Command to be executed:"
     echo -e "\t${rsync_cmd[@]}"
