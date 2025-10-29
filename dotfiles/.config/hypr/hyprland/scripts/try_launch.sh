@@ -3,7 +3,11 @@
 for cmd in "$@"; do
     [[ -z "$cmd" ]] && continue
 
-    command -v "${cmd%% *}" >/dev/null 2>&1 || continue
-    eval "$cmd" &
-    exit
+    exe=${cmd%% *}
+    if command -v "$exe" >/dev/null 2>&1; then
+        bash -c -- "$cmd" &
+        exit 0
+    fi
 done
+
+exit 1

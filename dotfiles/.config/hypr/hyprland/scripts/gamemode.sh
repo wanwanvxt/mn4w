@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-hypr_anim_enabled=$(hyprctl getoption animations:enabled -j | jq ".int")
+hypr_anim_enabled=$(hyprctl -j getoption animations:enabled | jq ".int")
 if [[ "$hypr_anim_enabled" == 1 ]]; then
     hyprctl -q --batch "\
         keyword general:gaps_in 0;\
