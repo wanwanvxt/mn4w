@@ -1,1 +1,1 @@
-<h1 align="center">《 wanwanvxt's Hyprland dotfiles 》</h1>
+<h1 align="center">❄️『 My NixOS configuration 』❄️</h1>
