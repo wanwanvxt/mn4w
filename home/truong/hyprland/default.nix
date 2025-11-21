@@ -13,6 +13,8 @@
             ${builtins.readFile ./config/bindings.conf}
             ## AUTOSTART
             ${builtins.readFile ./config/autostart.conf}
+            ## RULES
+            ${builtins.readFile ./config/rules.conf}
         '';
     };
 
