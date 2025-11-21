@@ -3,7 +3,7 @@
     programs.helix = {
         defaultEditor = true;
         settings = {
-            theme = "jellybeans";
+            theme = "dark_plus";
             editor = {
                 true-color = true;
                 insert-final-newline = true;
@@ -15,7 +15,10 @@
                         "separator" "version-control" "workspace-diagnostics"
                     ];
                     center = [];
-                    right = [ "selections" "register" "position" "file-indent-style" "file-encoding" "file-line-ending" ];
+                    right = [
+                        "primary-selection-length" "register" "position"
+                        "file-indent-style" "file-encoding" "file-line-ending"
+                    ];
                 };
                 lsp.enable = true;
                 cursor-shape = {
