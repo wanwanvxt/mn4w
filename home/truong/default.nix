@@ -13,6 +13,7 @@
             enable = true;
             package = pkgs.gitFull;
         };
+        lazygit.enable = true;
         helix.enable = true;
 
         # gui apps
