@@ -18,7 +18,6 @@
 
         # gui apps
         kitty.enable = true;
-        pqiv.enable = true;
         firefox.enable = true;
         vscode.enable = true;
         vesktop.enable = true;
@@ -26,7 +25,6 @@
         # utilities
         btop.enable = true;
         fastfetch.enable = true;
-        jq.enable = true;
     };
     services = {
         playerctld.enable = true;
@@ -35,10 +33,11 @@
         # gui apps
         kdePackages.qtsvg kdePackages.kio-fuse kdePackages.kio-extras
         kdePackages.dolphin kdePackages.ark
-        vlc
+        vlc pqiv
 
         # utilities
         xdg-utils libnotify brightnessctl
+        wl-clipboard slurp wayshot jq
         nvtopPackages.full tree
     ];
 
