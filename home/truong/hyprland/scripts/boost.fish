@@ -2,7 +2,7 @@
 
 set hypr_anim_enabled (hyprctl -j getoption animations:enabled | jq ".int")
 
-if test "$hypr_anim_enabled" = 1
+if test "$hypr_anim_enabled" -eq 1
     hyprctl -q --batch "
         keyword general:gaps_in 0;
         keyword general:gaps_out 0;

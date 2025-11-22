@@ -1,9 +1,7 @@
 #!/usr/bin/env fish
 
 set -l wallpaper_dir "$XDG_PICTURES_DIR/wallpapers"
-if not test -d "$wallpaper_dir"
-    exit 1
-end
+test -d "$wallpaper_dir" || exit 1
 
 set -l all_wallpapers (              \
     find "$wallpaper_dir" -type f \( \
@@ -15,9 +13,7 @@ set -l all_wallpapers (              \
         -iname "*.webp"              \
     \)                               \
 )
-if not test (count $all_wallpapers) -gt 0
-    exit 1
-end
+test (count $all_wallpapers) -gt 0 || exit 1
 
 set -l current_wallpaper (           \
     hyprctl hyprpaper listactive     \
@@ -27,9 +23,7 @@ set -l current_wallpaper (           \
 set -l new_wallpaper ""
 while true
     set new_wallpaper (random choice $all_wallpapers)
-    if test "$new_wallpaper" != "$current_wallpaper"
-        break
-    end
+    test "$new_wallpaper" != "$current_wallpaper" && break
 end
 
 hyprctl -q hyprpaper reload ,"$new_wallpaper"
