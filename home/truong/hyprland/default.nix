@@ -32,6 +32,10 @@
             source = ./scripts/wallpaper.fish;
             executable = true;
         };
+        "hypr/scripts/screenshot.fish" = {
+            source = ./scripts/screenshot.fish;
+            executable = true;
+        };
     };
 
     services.hyprpaper.enable = true;
