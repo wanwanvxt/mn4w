@@ -2,6 +2,6 @@
 {
     users.users.truong = {
         isNormalUser = true;
-        extraGroups = [ "wheel" "networkmanager" "qbittorrent" "gamemode" ];
+        extraGroups = [ "wheel" "networkmanager" "gamemode" ];
     };
 }
