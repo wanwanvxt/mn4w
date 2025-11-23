@@ -5,7 +5,6 @@
     imports = [
         ./boot.nix
         ./nix.nix
-        ./locales.nix
         ./networking.nix
         ./audio.nix
         ./bluetooth.nix
