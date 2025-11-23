@@ -42,15 +42,16 @@
     ];
 
     imports = [
-        ./shell.nix
-        ./ssh.nix
-        ./xdg.nix
-        ./theme.nix
-        ./ime.nix
-        ./hyprland
+        ./btop.nix
         ./git.nix
         ./helix.nix
+        ./hyprland
+        ./ime.nix
         ./kitty.nix
+        ./shell.nix
+        ./ssh.nix
+        ./theme.nix
+        ./xdg.nix
         ./vesktop.nix
     ];
 }
