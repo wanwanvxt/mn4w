@@ -5,5 +5,6 @@
         ./locales.nix
         ./graphics.nix
         ./gaming.nix
+        ./qbittorrent.nix
     ];
 }
