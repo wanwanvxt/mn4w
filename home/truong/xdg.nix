@@ -14,9 +14,9 @@
             enable = true;
             createDirectories = true;
             download = "$HOME/downloads";
-            music = "$HOME/gallery";
-            pictures = "$HOME/gallery";
-            videos = "$HOME/gallery";
+            music = "$HOME/media";
+            pictures = "$HOME/media";
+            videos = "$HOME/media";
             desktop = "$HOME/others";
             documents = "$HOME/others";
             publicShare = "$HOME/others";
