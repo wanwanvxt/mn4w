@@ -10,6 +10,9 @@
                 set FLINE_PATH $XDG_CONFIG_HOME/fish/fishline
                 source $FLINE_PATH/init.fish
             '';
+            functions = {
+                fish_prompt = "fishline -s $status sigstatus userhost fullpwd git n arrow space";
+            };
         };
     };
 
