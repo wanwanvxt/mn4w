@@ -11,7 +11,7 @@
                 source $FLINE_PATH/init.fish
             '';
             functions = {
-                fish_prompt = "fishline -s $status sigstatus userhost fullpwd git n arrow space";
+                fish_prompt = "fishline -s $status sigstatus userhost fullpwd write git n root space";
             };
         };
     };
