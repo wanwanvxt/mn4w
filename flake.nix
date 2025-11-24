@@ -11,9 +11,13 @@
             url = "github:hyprwm/hyprqt6engine";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        fishline = {
+            url = "github:0rax/fishline";
+            flake = false;
+        };
     };
 
-    outputs = inputs @ { nixpkgs, home-manager, hyprqt6engine, ... }:
+    outputs = inputs @ { nixpkgs, home-manager, hyprqt6engine, fishline, ... }:
         let
             mkSystem = system: hostname: users:
             inputs.nixpkgs.lib.nixosSystem {
