@@ -2,6 +2,6 @@
 {
     users.users.truong = {
         isNormalUser = true;
-        extraGroups = [ "wheel" "networkmanager" "gamemode" ];
+        extraGroups = [ "wheel" "networkmanager" "gamemode" "input" ];
     };
 }
