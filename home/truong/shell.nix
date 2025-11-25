@@ -12,6 +12,7 @@
             '';
             functions = {
                 fish_prompt = "fishline -s $status sigstatus userhost fullpwd write git n root space";
+                fish_right_prompt = "fishline -rs 0 exectime clock";
             };
         };
     };
