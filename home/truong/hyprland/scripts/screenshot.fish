@@ -2,11 +2,10 @@
 
 set -l lock_file "/tmp/hyprland_screenshot_script.lock"
 
-function remove_lock_file
-    rm -f $lock_file
+function remove_lock_file --inherit-variable lock_file
+    rm -f "$lock_file"
 end
 trap remove_lock_file EXIT
-
 test -f "$lock_file" && exit 1
 touch "$lock_file"
 
@@ -18,9 +17,8 @@ test -d "$screenshots_dir" || mkdir -p "$screenshots_dir"
 set -l file_name (date +'%Y-%m-%d-%H%M%S.png')
 set -l file_path "$screenshots_dir/$file_name"
 
-function copy2clipboard
-    set -l file_to_copy $argv[1]
-    test -f "$file_to_copy" && wl-copy <"$file_to_copy"
+function copy2clipboard --inherit-variable file_path
+    test -f "$file_path" && wl-copy <"$file_path"
 end
 
 function opts
