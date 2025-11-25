@@ -47,6 +47,7 @@
 
     imports = [
         ./btop.nix
+        ./fastfetch.nix
         ./git.nix
         ./helix.nix
         ./hyprland
