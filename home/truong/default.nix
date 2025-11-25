@@ -39,6 +39,9 @@
         xdg-utils libnotify brightnessctl
         wl-clipboard slurp wayshot jq
         nvtopPackages.full tree
+
+        # developments
+        nixd
     ];
 
     imports = [
