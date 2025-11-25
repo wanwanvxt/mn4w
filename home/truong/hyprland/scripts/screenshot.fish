@@ -1,5 +1,17 @@
 #!/usr/bin/env fish
 
+set -l lock_file "/tmp/hyprland_screenshot_script.lock"
+
+function remove_lock_file
+    rm -f $lock_file
+end
+trap remove_lock_file EXIT
+
+test -f "$lock_file" && exit 1
+touch "$lock_file"
+
+# -------------------------------------------------------
+
 set -l screenshots_dir "$XDG_PICTURES_DIR/screenshots"
 test -d "$screenshots_dir" || mkdir -p "$screenshots_dir"
 
@@ -23,16 +35,13 @@ switch $mode
     case screen
         wayshot -f "$file_path"
         test $status -eq 0 && copy2clipboard "$file_path"
-        exit 0
     case window
         set -l box (hyprctl -j activewindow | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')
         wayshot -s "$box" -f "$file_path"
         test $status -eq 0 && copy2clipboard "$file_path"
-        exit 0
     case area
         wayshot -s (slurp -d) -f "$file_path"
         test $status -eq 0 && copy2clipboard "$file_path"
-        exit 0
     case "*"
         exit 1
 end
