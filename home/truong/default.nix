@@ -41,7 +41,7 @@
         nvtopPackages.full tree
 
         # developments
-        nixd
+        bash-language-server fish-lsp nixd
         gcc clang-tools cmakeWithGui xmake
     ];
 
