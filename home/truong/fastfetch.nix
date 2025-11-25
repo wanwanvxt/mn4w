@@ -13,7 +13,6 @@
             "shell"
             "editor"
             "display"
-            "monitor"
             "lm"
             "de"
             "wm"
