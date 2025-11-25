@@ -42,7 +42,7 @@
 
         # developments
         nixd
-        gcc llvm cmakeWithGui xmake
+        gcc clang-tools cmakeWithGui xmake
     ];
 
     imports = [
