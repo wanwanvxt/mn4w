@@ -18,7 +18,7 @@
 
         quickshell = {
             enable = true;
-            package = inputs.quickshell.packages.${pkgs.system}.default;
+            package = inputs.quickshell;
         };
 
         # gui apps
