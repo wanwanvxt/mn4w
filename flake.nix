@@ -15,9 +15,13 @@
             url = "github:0rax/fishline";
             flake = false;
         };
+        quickshell = {
+            url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
-    outputs = inputs @ { nixpkgs, home-manager, hyprqt6engine, fishline, ... }:
+    outputs = inputs @ { nixpkgs, home-manager, hyprqt6engine, fishline, quickshell, ... }:
         let
             mkSystem = system: hostname: users:
             inputs.nixpkgs.lib.nixosSystem {

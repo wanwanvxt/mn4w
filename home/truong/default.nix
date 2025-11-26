@@ -16,6 +16,11 @@
         lazygit.enable = true;
         helix.enable = true;
 
+        quickshell = {
+            enable = true;
+            package = inputs.quickshell.packages.${pkgs.system};
+        };
+
         # gui apps
         kitty.enable = true;
         firefox.enable = true;
