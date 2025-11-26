@@ -13,8 +13,12 @@
                 source $FLINE_PATH/init.fish
             '';
             functions = {
-                fish_prompt = "fishline -s $status sigstatus userhost fullpwd write git n root space";
-                fish_right_prompt = "fishline -rs 0 exectime clock";
+                fish_prompt = ''
+                    set FLCLR_EXECTIME_BG yellow
+                    set FLCLR_EXECTIME_FG black
+
+                    fishline -s $status clock userhost fullpwd write git n exectime sigstatus root space
+                '';
             };
         };
     };
