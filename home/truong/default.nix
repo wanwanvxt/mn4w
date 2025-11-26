@@ -42,6 +42,7 @@
 
         # developments
         bash-language-server fish-lsp nixd
+        kdePackages.qtdeclarative
         gcc clang-tools cmakeWithGui xmake
     ];
 
