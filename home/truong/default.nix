@@ -43,7 +43,7 @@
         # utilities
         xdg-utils libnotify brightnessctl
         wl-clipboard slurp wayshot jq
-        nvtopPackages.full tree
+        nvtopPackages.full tree unrar
 
         # developments
         bash-language-server fish-lsp nixd
