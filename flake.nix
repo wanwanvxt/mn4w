@@ -32,9 +32,9 @@
                         ./system
                         ./system/hosts/${hostname}
                         {
-                            nixpkgs.overlays = builtins.attrValues myOverlays ++ [
+                            nixpkgs.overlays = [
                                 inputs.hyprqt6engine.overlays.default
-                            ];
+                            ] ++ builtins.attrValues myOverlays;
                             networking.hostName = hostname;
                         }
                         inputs.home-manager.nixosModules.home-manager {
