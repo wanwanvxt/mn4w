@@ -28,13 +28,13 @@ let
             textCmd = if cfg.text != null && cfg.source == null then
                     let lines = lib.concatStringsSep "\n" (lib.mapAttrs (_: line: lib.escapeShell line) cfg.text);
                     in "printf '%s\\n' ${lines} > \"$target\""
-                else = "";
+                else "";
             sourceCmd = if cfg.source != null then
                     if lib.pathIsDirectory cfg.source then
                         "cp -r '${cfg.source}' \"$target\""
                     else
                         "install -Dm0644 '${cfg.source}' \"$target\""
-                else = "";
+                else "";
             rmCmd = if cfg.overwrite then "rm -rf \"$target\"" else "";
             chmodCmd = if cfg.executable then "chmod +x \"$target\"" else "";
 
