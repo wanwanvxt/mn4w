@@ -1,6 +1,6 @@
 { config, pkgs, inputs, ... }:
 let
-    qt6ctCfg = builtins.replaceStrings [ "{BREEZE_PATH}" ] [ pkgs.kdePackages.breeze ] builtins.readFile ./qt6ct.conf;
+    qt6ctCfg = builtins.replaceStrings [ "{BREEZE_PATH}" ] [ pkgs.kdePackages.breeze ] (builtins.readFile ./qt6ct.conf);
 in
 {
     home.packages = with pkgs; [
