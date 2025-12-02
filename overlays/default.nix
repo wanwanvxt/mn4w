@@ -1,3 +1,3 @@
 {
-    qt6ct = import ./qt6ct;
+    hyprqt6engine = import ./hyprqt6engine.nix;
 }
