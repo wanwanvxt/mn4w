@@ -20,9 +20,9 @@ let
             };
         };
 
-        config = let
+        config = { config, name, value, ... }: let
                 path = baseDir + "/${config._module.args.name}";
-                cfg = config._module.args.value;
+                cfg = value;
 
                 textCmd = if cfg.text != null && cfg.source == null then
                         let lines = lib.concatStringsSep "\n" (lib.mapAttrs (_: line: lib.escapeShell line) cfg.text);
@@ -38,7 +38,7 @@ let
                 chmodCmd = if cfg.executable then "chmod +x \"$target\"" else "";
 
             in lib.mkIf (cfg.source != null || cfg.text != null) {
-                home.activation."writable-${config._module.args.name}" = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+                home.activation."writable-${name}" = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
                     target="${path}"
                     ${rmCmd}
                     mkdir -p "$(dirname "$target")"
