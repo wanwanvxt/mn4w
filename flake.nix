@@ -21,29 +21,29 @@
         let
             myOverlays = import ./overlays;
             mkSystem = system: hostname: users:
-            inputs.nixpkgs.lib.nixosSystem {
-                inherit system;
-                specialArgs = { inherit inputs; };
-                modules = [
-                    ./system
-                    ./system/hosts/${hostname}
-                    {
-                        nixpkgs.overlays = builtins.attrValues myOverlays;
-                        networking.hostName = hostname;
-                    }
-                    inputs.home-manager.nixosModules.home-manager {
-                        home-manager = {
-                            useUserPackages = true;
-                            useGlobalPkgs = true;
-                            extraSpecialArgs = { inherit inputs; };
-                            users = builtins.listToAttrs (builtins.map (user: {
-                                name  = user;
-                                value = ./home/${user};
-                            }) users);
-                        };
-                    }
-                ] ++ (builtins.map (user: ./system/users/${user}.nix) users);
-            };
+                inputs.nixpkgs.lib.nixosSystem {
+                    inherit system;
+                    specialArgs = { inherit inputs; };
+                    modules = [
+                        ./system
+                        ./system/hosts/${hostname}
+                        {
+                            nixpkgs.overlays = builtins.attrValues myOverlays;
+                            networking.hostName = hostname;
+                        }
+                        inputs.home-manager.nixosModules.home-manager {
+                            home-manager = {
+                                useUserPackages = true;
+                                useGlobalPkgs = true;
+                                extraSpecialArgs = { inherit inputs; };
+                                users = builtins.listToAttrs (builtins.map (user: {
+                                    name  = user;
+                                    value = ./home/${user};
+                                }) users);
+                            };
+                        }
+                    ] ++ (builtins.map (user: ./system/users/${user}.nix) users);
+                };
         in {
             nixosConfigurations = {
                 laptop = mkSystem "x86_64-linux" "laptop" ["truong"];
