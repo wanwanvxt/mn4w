@@ -7,10 +7,6 @@
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        ilya-nur = {
-            url = "github:ilya-fedin/nur-repository";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
         fishline = {
             url = "github:0rax/fishline";
             flake = false;
@@ -21,7 +17,7 @@
         };
     };
 
-    outputs = inputs @ { nixpkgs, home-manager, ilya-nur, fishline, quickshell, ... }:
+    outputs = inputs @ { nixpkgs, home-manager, fishline, quickshell, ... }:
         let
             mkSystem = system: hostname: users:
             inputs.nixpkgs.lib.nixosSystem {
@@ -31,8 +27,8 @@
                     {
                         nixpkgs.overlays = [
                             (final: prev: {
-                                kdePackages = prev.kdePackages.overrideScope (qtFinal: qtPrev: {
-                                    qt6ct = (import inputs.ilya-nur { pkgs = prev; }).qt6ct;
+                                kdePackages = prev.kdePackages.overrideScope (kdeFinal: kdePrev: {
+                                    qt6ct = (import ./pkgs/qt6ct { pkgs = kdePrev; });
                                 });
                             })
                         ];
