@@ -19,17 +19,18 @@
 
     outputs = inputs @ { nixpkgs, home-manager, fishline, quickshell, ... }:
         let
+            myOverlays = import ./overlays;
             mkSystem = system: hostname: users:
             inputs.nixpkgs.lib.nixosSystem {
                 inherit system;
                 specialArgs = { inherit inputs; };
                 modules = [
-                    {
-                        nixpkgs.overlays = import ./overlays;
-                    }
                     ./system
                     ./system/hosts/${hostname}
-                    { networking.hostName = hostname; }
+                    {
+                        nixpkgs.overlays = builtins.attrValues myOverlays;
+                        networking.hostName = hostname;
+                    }
                     inputs.home-manager.nixosModules.home-manager {
                         home-manager = {
                             useUserPackages = true;
