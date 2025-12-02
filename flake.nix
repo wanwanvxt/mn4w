@@ -30,7 +30,11 @@
                 modules = [
                     {
                         nixpkgs.overlays = [
-                            inputs.ilya-nur.overlays.qt6ct
+                            (final: prev: {
+                                kdePackages = prev.kdePackages.overrideScope (qtFinal: qtPrev: {
+                                    qt6ct = (import inputs.ilya-nur { pkgs = prev; }).qt6ct;
+                                });
+                            })
                         ];
                     }
                     ./system
