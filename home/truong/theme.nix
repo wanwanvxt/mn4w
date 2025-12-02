@@ -9,6 +9,7 @@
         dconf
         papirus-icon-theme
         bibata-cursors
+        sound-theme-freedesktop
         hyprqt6engine
         kdePackages.breeze
         kdePackages.qqc2-desktop-style
@@ -60,9 +61,16 @@
     qt = {
         enable = true;
         platformTheme.name = null;
+        kde.settings.kdeglobals = {
+            Icons.Theme = "Papirus-Dark";
+            Sounds.Theme = "freedesktop";
+        };
     };
 
-    home.sessionVariables.QT_QPA_PLATFORMTHEME = "hyprqt6engine";
+    home = {
+        sessionVariables.QT_QPA_PLATFORMTHEME = "hyprqt6engine";
+        sessionSearchVariables.QT_PLUGIN_PATH = [ "${pkgs.hyprqt6engine}/lib/qt-6" ];
+    };
 
     xdg.configFile = {
         "hypr/hyprqt6engine.conf".text = ''
