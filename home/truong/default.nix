@@ -61,7 +61,7 @@
         ./kitty.nix
         ./shell.nix
         ./ssh.nix
-        ./theme.nix
+        ./theme
         ./xdg.nix
         ./vesktop.nix
     ];

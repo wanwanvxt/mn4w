@@ -1,4 +1,7 @@
 { config, pkgs, inputs, ... }:
+let
+    qt6ctCfg = builtins.replaceStrings [ "{BREEZE_PATH}" ] [ pkgs.kdePackages.breeze ] builtins.readFile ./qt6ct.conf;
+in
 {
     home.packages = with pkgs; [
         noto-fonts
@@ -7,6 +10,9 @@
         liberation_ttf
         nerd-fonts._0xproto
         dconf
+        papirus-icon-theme
+        bibata-cursors
+        kdePackages.breeze
     ];
 
     fonts.fontconfig = {
@@ -55,6 +61,9 @@
     qt = {
         enable = true;
         platformTheme.name = "qtct";
-        style.name = "breeze";
+    };
+
+    xdg.configFile = {
+        "qt6ct/qt6ct.conf".text = qt6ctCfg;
     };
 }
