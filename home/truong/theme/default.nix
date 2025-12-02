@@ -13,6 +13,7 @@ in
         papirus-icon-theme
         bibata-cursors
         kdePackages.breeze
+        kdePackages.qqc2-desktop-style
     ];
 
     fonts.fontconfig = {
