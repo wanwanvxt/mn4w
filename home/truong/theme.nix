@@ -1,7 +1,4 @@
 { config, pkgs, inputs, ... }:
-let
-    qt6ctCfg = builtins.replaceStrings [ "{BREEZE_PATH}" ] [ "${pkgs.kdePackages.breeze}" ] (builtins.readFile ./qt6ct.conf);
-in
 {
     home.packages = with pkgs; [
         noto-fonts
@@ -12,6 +9,7 @@ in
         dconf
         papirus-icon-theme
         bibata-cursors
+        hyprqt6engine
         kdePackages.breeze
         kdePackages.qqc2-desktop-style
     ];
@@ -61,10 +59,28 @@ in
     # Qt
     qt = {
         enable = true;
-        platformTheme.name = "qtct";
+        platformTheme.name = null;
     };
 
+    home.sessionVariables.QT_QPA_PLATFORMTHEME = "hyprqt6engine";
+
     xdg.configFile = {
-        "qt6ct/qt6ct.conf".text = qt6ctCfg;
+        "hypr/hyprqt6engine.conf".text = ''
+            theme {
+                style = Breeze
+                color_scheme = ${pkgs.kdePackages.breeze}/share/color-schemes/BreezeDark.colors
+                icon_theme = Papirus-Dark
+                font = Noto Sans
+                font_size = 10
+                font_fixed = Noto Sans
+                font_fixed_size = 10
+            }
+
+            misc {
+                single_click_activate = true
+                menus_have_icons = true
+                shortcuts_for_context_menus = true
+            }
+        '';
     };
 }

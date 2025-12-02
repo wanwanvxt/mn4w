@@ -7,6 +7,10 @@
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        hyprqt6engine = {
+            url = "github:hyprwm/hyprqt6engine";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         fishline = {
             url = "github:0rax/fishline";
             flake = false;
@@ -17,7 +21,7 @@
         };
     };
 
-    outputs = inputs @ { nixpkgs, home-manager, fishline, quickshell, ... }:
+    outputs = inputs @ { nixpkgs, home-manager, hyprqt6engine, fishline, quickshell, ... }:
         let
             myOverlays = import ./overlays;
             mkSystem = system: hostname: users:
@@ -28,7 +32,9 @@
                         ./system
                         ./system/hosts/${hostname}
                         {
-                            nixpkgs.overlays = builtins.attrValues myOverlays;
+                            nixpkgs.overlays = builtins.attrValues myOverlays ++ [
+                                inputs.hyprqt6engine.overlays.default
+                            ];
                             networking.hostName = hostname;
                         }
                         inputs.home-manager.nixosModules.home-manager {
