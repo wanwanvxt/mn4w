@@ -1,0 +1,3 @@
+{
+    writable = import ./writable.nix;
+}

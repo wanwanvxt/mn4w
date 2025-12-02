@@ -24,6 +24,8 @@
     outputs = inputs @ { nixpkgs, home-manager, hyprqt6engine, fishline, quickshell, ... }:
         let
             myOverlays = import ./overlays;
+            myHomeModules = import ./home/modules;
+
             mkSystem = system: hostname: users:
                 inputs.nixpkgs.lib.nixosSystem {
                     inherit system;
@@ -42,6 +44,7 @@
                                 useUserPackages = true;
                                 useGlobalPkgs = true;
                                 extraSpecialArgs = { inherit inputs; };
+                                sharedModules = builtins.attrValues myHomeModules;
                                 users = builtins.listToAttrs (builtins.map (user: {
                                     name  = user;
                                     value = ./home/${user};
