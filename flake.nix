@@ -28,7 +28,7 @@
                         nixpkgs.overlays = [
                             (final: prev: {
                                 kdePackages = prev.kdePackages.overrideScope (kdeFinal: kdePrev: {
-                                    qt6ct = (import ./pkgs/qt6ct { pkgs = kdePrev; });
+                                    qt6ct = (import ./overlays/qt6ct { pkgs = kdePrev; });
                                 });
                             })
                         ];
