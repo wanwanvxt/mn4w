@@ -7,8 +7,8 @@
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        hyprqt6engine = {
-            url = "github:hyprwm/hyprqt6engine";
+        ilya-nur = {
+            url = "github:ilya-fedin/nur-repository";
             inputs.nixpkgs.follows = "nixpkgs";
         };
         fishline = {
@@ -21,7 +21,7 @@
         };
     };
 
-    outputs = inputs @ { nixpkgs, home-manager, hyprqt6engine, fishline, quickshell, ... }:
+    outputs = inputs @ { nixpkgs, home-manager, ilya-nur, fishline, quickshell, ... }:
         let
             mkSystem = system: hostname: users:
             inputs.nixpkgs.lib.nixosSystem {
@@ -30,20 +30,7 @@
                 modules = [
                     {
                         nixpkgs.overlays = [
-                            inputs.hyprqt6engine.overlays.default
-                            (final: prev: {
-                                hyprqt6engine = prev.hyprqt6engine.overrideAttrs (oldAttrs: {
-                                    buildInputs = (oldAttrs.buildInputs or []) ++ [
-                                        prev.kdePackages.kconfig
-                                        prev.kdePackages.kcolorscheme
-                                        prev.kdePackages.kiconthemes
-                                    ];
-
-                                    nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [
-                                        prev.kdePackages.extra-cmake-modules
-                                    ];
-                                });
-                            })
+                            inputs.ilya-nur.overlays.qt6ct
                         ];
                     }
                     ./system

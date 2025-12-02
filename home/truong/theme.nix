@@ -7,9 +7,6 @@
         liberation_ttf
         nerd-fonts._0xproto
         dconf
-        kdePackages.breeze
-        kdePackages.qqc2-desktop-style
-        hyprqt6engine
     ];
 
     fonts.fontconfig = {
@@ -57,35 +54,7 @@
     # Qt
     qt = {
         enable = true;
-        platformTheme.name = null;
-    };
-
-    home = {
-        sessionVariables.QT_QPA_PLATFORMTHEME = "hyprqt6engine";
-        sessionSearchVariables.QT_PLUGIN_PATH = [ "${pkgs.hyprqt6engine}/lib/qt-6" ];
-    };
-
-    xdg.configFile = {
-        "hypr/hyprqt6engine.conf".text = ''
-            theme {
-                style = Breeze
-                color_scheme = ${pkgs.kdePackages.breeze}/share/color-schemes/BreezeDark.colors
-                icon_theme = Papirus-Dark
-                font = Noto Sans
-                font_size = 10
-                font_fixed = Noto Sans
-                font_fixed_size = 10
-            }
-
-            misc {
-                single_click_activate = true
-                menus_have_icons = true
-                shortcuts_for_context_menus = true
-            }
-        '';
-        "kdeglobals".text = ''
-            [Icons]
-            Theme=Papirus-Dark
-        '';
+        platformTheme.name = "qtct";
+        style.name = "breeze";
     };
 }
