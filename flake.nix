@@ -47,7 +47,7 @@
                                 sharedModules = builtins.attrValues myHomeModules;
                                 users = builtins.listToAttrs (builtins.map (user: {
                                     name  = user;
-                                    value = ./home/${user};
+                                    value = ./home/users/${user};
                                 }) users);
                             };
                         }
