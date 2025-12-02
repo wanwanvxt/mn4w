@@ -25,13 +25,7 @@
                 specialArgs = { inherit inputs; };
                 modules = [
                     {
-                        nixpkgs.overlays = [
-                            (final: prev: {
-                                kdePackages = prev.kdePackages.overrideScope (kdeFinal: kdePrev: {
-                                    qt6ct = (import ./overlays/qt6ct { pkgs = kdePrev; });
-                                });
-                            })
-                        ];
+                        nixpkgs.overlays = import ./overlays;
                     }
                     ./system
                     ./system/hosts/${hostname}
