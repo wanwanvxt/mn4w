@@ -51,7 +51,7 @@
                                 }) users);
                             };
                         }
-                    ] ++ (builtins.map (user: ./system/users/${user}.nix) users);
+                    ] ++ (builtins.map (user: ./system/users/${user}) users);
                 };
         in {
             nixosConfigurations = {
