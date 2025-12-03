@@ -36,6 +36,7 @@
                         {
                             nixpkgs.overlays = [
                                 inputs.hyprqt6engine.overlays.default
+                                inputs.quickshell.overlays.default
                             ] ++ builtins.attrValues myOverlays;
                             networking.hostName = hostname;
                         }

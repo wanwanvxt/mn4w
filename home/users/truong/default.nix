@@ -3,11 +3,7 @@
     home.stateVersion = osConfig.system.stateVersion;
 
     programs = {
-        quickshell = {
-            enable = true;
-            package = inputs.quickshell.packages.${pkgs.system}.default;
-        };
-
+        quickshell.enable = true;
         firefox.enable = true;
     };
     services = {
