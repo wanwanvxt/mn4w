@@ -15,7 +15,16 @@
             ${builtins.readFile ./config/autostart.conf}
             ## RULES
             ${builtins.readFile ./config/rules.conf}
+            ## CUSTOM
+            source = $HYPR_CONFIG_DIR/custom.conf
         '';
+    };
+
+    writable.xdgConfigFile = {
+        "hypr/custom.conf" = {
+            text = "";
+            override = false;
+        };
     };
 
     # xdg.configFile."hypr/scripts" = {
