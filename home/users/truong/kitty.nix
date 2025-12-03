@@ -15,4 +15,9 @@
             "page_down" = "scroll_page_down";
         };
     };
+
+    xdg.terminal-exec = {
+        enable = true;
+        default = [ "kitty.desktop" ];
+    };
 }
