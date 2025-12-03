@@ -5,7 +5,7 @@
         extraGroups = [ "wheel" "networkmanager" "gamemode" "input" ];
     };
 
-    import = [
+    imports = [
         ./gaming.nix
         ./locales.nix
     ];
