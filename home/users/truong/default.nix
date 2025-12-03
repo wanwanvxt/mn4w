@@ -17,7 +17,7 @@
         # gui apps
         kdePackages.qtsvg kdePackages.kio-fuse kdePackages.kio-extras
         kdePackages.dolphin kdePackages.ark
-        vlc pqiv
+        vlc pqiv aseprite
 
         # utilities
         xdg-utils libnotify brightnessctl
