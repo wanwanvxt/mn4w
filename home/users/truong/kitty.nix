@@ -22,4 +22,6 @@
             default = [ "kitty.desktop" ];
         };
     };
+
+    qt.kde.settings.kdeglobals.General.TerminalApplication = "kitty";
 }
