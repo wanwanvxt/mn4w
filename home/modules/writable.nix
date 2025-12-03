@@ -1,64 +1,78 @@
 { config, pkgs, lib, inputs, ... }:
 let
-    mkWritableType = baseDir: {
-        options = {
-            text = lib.mkOption {
-                type = lib.types.nullOr lib.types.lines;
-                default = null;
+    mkOpt = lib.mkOption {
+        type = lib.types.attrsOf (lib.types.submodule {
+            options = {
+                text = lib.mkOption {
+                    type = lib.types.nullOr lib.types.lines;
+                    default = null;
+                };
+                source = lib.mkOption {
+                    type = lib.types.nullOr lib.types.path;
+                    default = null;
+                };
+                executable = lib.mkOption {
+                    type = lib.types.bool;
+                    default = false;
+                };
+                override = lib.mkOption {
+                    type = lib.types.bool;
+                    default = true;
+                };
             };
-            source = lib.mkOption {
-                type = lib.types.nullOr lib.types.path;
-                default = null;
-            };
-            executable = lib.mkOption {
-                type = lib.types.bool;
-                default = false;
-            };
-            overwrite = lib.mkOption {
-                type = lib.types.bool;
-                default = true;
-            };
-        };
+        });
+        default = {};
+    };
 
-        config = { config, name, value, ... }: let
-                path = baseDir + "/${config._module.args.name}";
-                cfg = value;
+    cfgHome = config.writable.homeFile;
+    cfgXdgCfg = config.writable.xdgConfigFile;
 
-                textCmd = if cfg.text != null && cfg.source == null then
-                        let lines = lib.concatStringsSep "\n" (lib.mapAttrs (_: line: lib.escapeShell line) cfg.text);
-                        in "printf '%s\\n' ${lines} > \"$target\""
-                    else "";
-                sourceCmd = if cfg.source != null then
-                        if lib.pathIsDirectory cfg.source then
-                            "cp -r '${cfg.source}' \"$target\""
-                        else
-                            "install -Dm0644 '${cfg.source}' \"$target\""
-                    else "";
-                rmCmd = if cfg.overwrite then "rm -rf \"$target\"" else "";
-                chmodCmd = if cfg.executable then "chmod +x \"$target\"" else "";
+    mkFilteredCfg = cfg: lib.filterAttrs (_: value: value.source != null || value.text != null) cfg;
+    filteredCfgHome = mkFilteredCfg cfgHome;
+    filteredCfgXdgCfg = mkFilteredCfg cfgXdgCfg;
 
-            in lib.mkIf (cfg.source != null || cfg.text != null) {
-                home.activation."writable-${name}" = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-                    target="${path}"
-                    ${rmCmd}
-                    mkdir -p "$(dirname "$target")"
-                    ${textCmd}
-                    ${sourceCmd}
-                    ${chmodCmd}
-                '';
-            };
-        };
+    mkActivationEntries = cfg: baseDir: lib.mapAttrs (name: value:
+        let
+            targetPath = "${baseDir}/${name}";
+
+            writeSourceCmd = if value.source != null then
+                    if lib.pathIsDirectory value.source then
+                        "run cp -r '${value.source}' '${targetPath}'"
+                    else "run install -Dm0644 '${value.source}' '${targetPath}'"
+                else "";
+            writeTextCmd = if value.text != null then
+                    let
+                        textList = lib.lists.toList value.text;
+                        fullText = lib.escapeShellArg (lib.concatStringsSep "\n" textList);
+                    in "run echo -e ${fullText} > '${targetPath}'"
+                else "";
+            writeCmd = if writeSourceCmd != "" then writeSourceCmd else writeTextCmd;
+
+            checkSkipCmd = if !value.override then
+                    "if [ -e '${targetPath}' ]; then exit 0; fi"
+                else "";
+            rmCmd = if value.override then "run rm -rf '${targetPath}'" else "";
+            chmodCmd = if value.executable then "run chmod +x '${targetPath}'" else "";
+        in
+            lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+                ${checkSkipCmd}
+                ${rmCmd}
+                run mkdir -p '$(dirname '${targetPath}')'
+                ${writeCmd}
+                ${chmodCmd}
+            ''
+    ) cfg;
 in
 {
     options.writable = {
-        homeFile = lib.mkOption {
-            type = lib.types.attrsOf (lib.types.submodule (mkWritableType config.home.homeDirectory));
-            default = {};
-        };
+        homeFile = mkOpt;
+        xdgConfigFile = mkOpt;
+    };
 
-        xdgConfigFile = lib.mkOption {
-            type = lib.types.attrsOf (lib.types.submodule (mkWritableType config.xdg.configHome));
-            default = {};
-        };
+    config = {
+        home.activation = lib.mkMerge [
+            (mkActivationEntries filteredCfgHome config.home.homeDirectory)
+            (mkActivationEntries filteredCfgXdgCfg config.xdg.configHome)
+        ];
     };
 }
