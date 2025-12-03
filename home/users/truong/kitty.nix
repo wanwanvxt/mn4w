@@ -18,6 +18,8 @@
 
     xdg.terminal-exec = {
         enable = true;
-        default = [ "kitty.desktop" ];
+        settings = {
+            default = [ "kitty.desktop" ];
+        };
     };
 }
