@@ -9,7 +9,6 @@
         };
 
         firefox.enable = true;
-        vscode.enable = true;
     };
     services = {
         playerctld.enable = true;
@@ -33,7 +32,6 @@
 
     imports = [
         ./btop.nix
-        ./fastfetch.nix
         ./git.nix
         ./helix.nix
         ./hyprland
