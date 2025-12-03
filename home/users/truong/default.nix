@@ -17,12 +17,13 @@
         # gui apps
         kdePackages.qtsvg kdePackages.kio-fuse kdePackages.kio-extras
         kdePackages.dolphin kdePackages.ark
-        vlc pqiv aseprite
+        vlc pqiv aseprite qalculate-qt
 
         # utilities
         xdg-utils libnotify brightnessctl
         wl-clipboard slurp wayshot jq
         nvtopPackages.full tree unrar
+        libqalculate
 
         # developments
         bash-language-server fish-lsp nixd
