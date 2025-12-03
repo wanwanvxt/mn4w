@@ -1,6 +1,7 @@
 { config, pkgs, inputs, ... }:
 {
     programs.kitty = {
+        enable = true;
         settings = {
             font_family = "0xProto Nerd Font";
             font_size = 10;

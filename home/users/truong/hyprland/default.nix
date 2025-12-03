@@ -1,6 +1,7 @@
 { config, pkgs, inputs, ... }:
 {
     wayland.windowManager.hyprland = {
+        enable = true;
         xwayland.enable = true;
         extraConfig = ''
             $HYPR_CONFIG_DIR = ${config.xdg.configHome}/hypr

@@ -2,34 +2,14 @@
 {
     home.stateVersion = osConfig.system.stateVersion;
 
-    wayland.windowManager.hyprland.enable = true;
     programs = {
-        # shells
-        bash.enable = true;
-        fish.enable = true;
-
-        ssh.enable = true;
-        git = {
-            enable = true;
-            package = pkgs.gitFull;
-        };
-        lazygit.enable = true;
-        helix.enable = true;
-
         quickshell = {
             enable = true;
             package = inputs.quickshell.packages.${pkgs.system}.default;
         };
 
-        # gui apps
-        kitty.enable = true;
         firefox.enable = true;
         vscode.enable = true;
-        vesktop.enable = true;
-
-        # utilities
-        btop.enable = true;
-        fastfetch.enable = true;
     };
     services = {
         playerctld.enable = true;

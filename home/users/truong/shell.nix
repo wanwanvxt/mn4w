@@ -3,8 +3,12 @@
     xdg.configFile."fish/fishline".source = inputs.fishline;
 
     programs = {
-        bash.enableCompletion =  true;
+        bash = {
+            enable = true;
+            enableCompletion =  true;
+        };
         fish = {
+            enable = true;
             generateCompletions = true;
             interactiveShellInit = ''
                 set -p fish_complete_path ${pkgs.fish}/share/fish/completions

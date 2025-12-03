@@ -1,13 +1,18 @@
 { config, pkgs, inputs, ... }:
 {
-    programs.git = {
-        lfs.enable = true;
-        settings = {
-            init.defaultBranch = "main";
-            user = {
-                name = "Vũ Xuân Trường";
-                email = "wanwan.vxt@gmail.com";
+    programs = {
+        git = {
+            enable = true;
+            package = pkgs.gitFull;
+            lfs.enable = true;
+            settings = {
+                init.defaultBranch = "main";
+                user = {
+                    name = "Vũ Xuân Trường";
+                    email = "wanwan.vxt@gmail.com";
+                };
             };
         };
+        lazygit.enable = true;
     };
 }
