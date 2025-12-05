@@ -13,7 +13,7 @@ in
             hostname = bracketedSegmentsCfg.hostname // {
                 ssh_only = false;
             };
-            directory = bracketedSegmentsCfg.directory // {
+            directory = {
                 truncate_to_repo = false;
             };
             time = bracketedSegmentsCfg.time // {
