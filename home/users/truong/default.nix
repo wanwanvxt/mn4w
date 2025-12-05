@@ -32,7 +32,7 @@
         ./kitty.nix
         ./shell.nix
         ./ssh.nix
-        ./starship
+        ./starship.nix
         ./theme.nix
         ./xdg.nix
         ./vesktop.nix
