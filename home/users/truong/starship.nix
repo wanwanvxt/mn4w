@@ -34,18 +34,17 @@
                 truncate_to_repo = false;
             };
             git_branch = {
-                format = "[\\[$symbol $branch]($style) ";
+                format = "[\\[$symbol $branch]($style)";
                 style = "bold purple";
                 symbol = "";
             };
             git_status = {
-                format = "[$all_status$ahead_behind]($style)[\\]](bold purple) ";
+                format = " [$all_status$ahead_behind]($style)[\\]](bold purple) ";
                 style = "bold red";
             };
             cmd_duration = {
                 format = "[\\[󱎫 $duration\\]]($style)";
                 style = "bold yellow";
-                show_milliseconds = true;
             };
             shell = {
                 format = "[$indicator]($style) ";
