@@ -16,15 +16,11 @@
         vlc pqiv aseprite qalculate-qt
 
         # utilities
+        bash-language-server fish-lsp nixd
         xdg-utils libnotify brightnessctl
         wl-clipboard slurp wayshot jq
         nvtopPackages.full tree unrar
         libqalculate
-
-        # developments
-        bash-language-server fish-lsp nixd
-        kdePackages.qtdeclarative
-        gcc clang-tools cmakeWithGui xmake
     ];
 
     imports = [
