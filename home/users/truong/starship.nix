@@ -15,18 +15,6 @@
                 "$status"
                 "$character"
             ];
-            palette = "green";
-            palettes.green = {
-                green_1 = "#9ece6a";
-                green_2 = "#8eb95f";
-                green_3 = "#7ea454";
-                green_4 = "#6e904a";
-                green_5 = "#5e7b3f";
-                green_6 = "#4f6735";
-                green_7 = "#3f522a";
-                green_8 = "#2f3d1f";
-                green_9 = "#1f2915";
-            };
             username =  {
                 format = "[\\[$user]($style)";
                 style_user = "bold green";
