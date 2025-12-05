@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, lib, ... }:
 let
     mkOpt = lib.mkOption {
         type = lib.types.attrsOf (lib.types.submodule {

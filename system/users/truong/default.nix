@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ ... }:
 {
     users.users.truong = {
         isNormalUser = true;

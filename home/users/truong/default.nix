@@ -1,4 +1,4 @@
-{ config, osConfig, pkgs, inputs, ... }:
+{ osConfig, pkgs, ... }:
 {
     home.stateVersion = osConfig.system.stateVersion;
 

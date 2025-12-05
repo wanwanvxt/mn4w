@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ ... }:
 let
     bracketedSegmentsCfg = builtins.fromTOML (builtins.readFile ./bracketed-segments.toml);
 in
