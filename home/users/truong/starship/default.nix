@@ -5,7 +5,7 @@ in
 {
     programs.starship = {
         enable = true;
-        settings = {
+        settings = bracketedSegmentsCfg // {
             add_newline = false;
             username = bracketedSegmentsCfg.username // {
                 show_always = true;
@@ -25,6 +25,6 @@ in
             shell = bracketedSegmentsCfg.shell // {
                 disabled = false;
             };
-        } // bracketedSegmentsCfg;
+        };
     };
 }
