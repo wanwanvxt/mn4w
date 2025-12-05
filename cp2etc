@@ -1,0 +1,31 @@
+#!/usr/bin/env fish
+
+set -l source_dir (realpath (dirname (status -f)))
+set -l target_dir /etc/nixos
+
+if test "$source_dir" = "$target_dir"
+    echo "this script is designed to copy files *into* /etc/nixos, not from it"
+    exit 1
+end
+
+if not test -d "$source_dir"
+    echo "source directory does not exist: $source_dir"
+    exit 1
+end
+
+set -l copy_cmd ""
+if type -q rsync
+    set copy_cmd rsync -av --delete --exclude=.git "$source_dir" "$target_dir"
+else
+    set copy_cmd cp -rT "$source_dir" "$target_dir"
+end
+
+echo "copying..."
+sudo $copy_cmd
+
+if test $status -eq 0
+    echo "successfull!"
+else
+    echo "failed!"
+    exit $status
+end
