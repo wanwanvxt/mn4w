@@ -6,6 +6,8 @@
         extraConfig = ''
             $HYPR_CONFIG_DIR = ${config.xdg.configHome}/hypr
 
+            ## COLORS
+            source = $HYPR_CONFIG_DIR/colors.conf
             ## GENERAL
             ${builtins.readFile ./config/general.conf}
             ## ENV
@@ -22,6 +24,10 @@
     };
 
     writable.xdgConfigFile = {
+        "hypr/colors.conf" = {
+            source = ./config/colors.conf;
+            override = false;
+        };
         "hypr/custom.conf" = {
             text = "";
             override = false;
