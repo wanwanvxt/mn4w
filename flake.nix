@@ -11,17 +11,13 @@
             url = "github:hyprwm/hyprqt6engine";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        fishline = {
-            url = "github:0rax/fishline";
-            flake = false;
-        };
         quickshell = {
             url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
             inputs.nixpkgs.follows = "nixpkgs";
         };
     };
 
-    outputs = inputs @ { nixpkgs, home-manager, hyprqt6engine, fishline, quickshell, ... }:
+    outputs = inputs @ { nixpkgs, home-manager, hyprqt6engine, quickshell, ... }:
         let
             myOverlays = import ./overlays;
             myHomeModules = import ./home/modules;
