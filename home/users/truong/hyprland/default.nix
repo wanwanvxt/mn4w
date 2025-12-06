@@ -1,5 +1,8 @@
-{ config, lib, ... }:
-let
+{
+    config,
+    lib,
+    ...
+}: let
     readonlyCfgFiles = [
         "general.conf"
         "env.conf"
@@ -18,8 +21,7 @@ let
             source = ./${dir}/${f};
             inherit executable;
         });
-in
-{
+in {
     wayland.windowManager.hyprland = {
         enable = true;
         xwayland.enable = true;
@@ -27,8 +29,7 @@ in
             $HYPR_CONFIG_PATH = ${config.xdg.configHome}/hypr
             source = $HYPR_CONFIG_PATH/hyprland/colors.conf
             ${
-                builtins.concatStringsSep "\n"
-                    (builtins.map (f: "source = $HYPR_CONFIG_PATH/hyprland/${f}") readonlyCfgFiles)
+                builtins.concatStringsSep "\n" (builtins.map (f: "source = $HYPR_CONFIG_PATH/hyprland/${f}") readonlyCfgFiles)
             }
             source = $HYPR_CONFIG_PATH/hyprland/custom.conf
         '';
@@ -39,11 +40,15 @@ in
         "hypr/hyprland/custom.conf".source = ./config/custom.conf;
     };
 
-    xdg.configFile = (lib.mapAttrs'
-        (name: value: (lib.nameValuePair "hypr/hyprland/${name}" value)) (mkEntries readonlyCfgFiles "./config" false)
-    ) // (lib.mapAttrs'
-        (name: value: (lib.nameValuePair "hypr/hyprland/scripts/${name}" value)) (mkEntries scriptFiles "./scripts" true)
-    );
+    xdg.configFile =
+        (
+            lib.mapAttrs'
+            (name: value: (lib.nameValuePair "hypr/hyprland/${name}" value)) (mkEntries readonlyCfgFiles "./config" false)
+        )
+        // (
+            lib.mapAttrs'
+            (name: value: (lib.nameValuePair "hypr/hyprland/scripts/${name}" value)) (mkEntries scriptFiles "./scripts" true)
+        );
 
     services.hyprpaper.enable = true;
 }

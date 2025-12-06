@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
     programs.starship = {
         enable = true;
         settings = {
@@ -16,7 +15,7 @@
                 "$status"
                 "$character "
             ];
-            username =  {
+            username = {
                 format = "[\\[$user]($style)";
                 style_user = "bold green";
                 style_root = "bold red";

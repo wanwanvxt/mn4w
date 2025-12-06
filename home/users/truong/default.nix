@@ -1,5 +1,8 @@
-{ osConfig, pkgs, ... }:
 {
+    osConfig,
+    pkgs,
+    ...
+}: {
     home.stateVersion = osConfig.system.stateVersion;
 
     programs = {
@@ -11,15 +14,31 @@
     };
     home.packages = with pkgs; [
         # gui apps
-        kdePackages.qtsvg kdePackages.kio-fuse kdePackages.kio-extras
-        kdePackages.dolphin kdePackages.ark
-        vlc pqiv aseprite qalculate-qt
+        kdePackages.qtsvg
+        kdePackages.kio-fuse
+        kdePackages.kio-extras
+        kdePackages.dolphin
+        kdePackages.ark
+        vlc
+        pqiv
+        aseprite
+        qalculate-qt
 
         # utilities
-        bash-language-server fish-lsp nixd alejandra
-        xdg-utils libnotify brightnessctl
-        wl-clipboard slurp wayshot jq
-        nvtopPackages.full tree unrar
+        bash-language-server
+        fish-lsp
+        nixd
+        alejandra
+        xdg-utils
+        libnotify
+        brightnessctl
+        wl-clipboard
+        slurp
+        wayshot
+        jq
+        nvtopPackages.full
+        tree
+        unrar
         libqalculate
     ];
 

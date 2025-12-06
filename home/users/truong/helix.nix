@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
     programs.helix = {
         enable = true;
         defaultEditor = true;
@@ -12,13 +11,23 @@
                 trim-trailing-whitespace = true;
                 statusline = {
                     left = [
-                        "mode" "spinner" "file-absolute-path" "read-only-indicator" "file-modification-indicator"
-                        "separator" "version-control" "workspace-diagnostics"
+                        "mode"
+                        "spinner"
+                        "file-absolute-path"
+                        "read-only-indicator"
+                        "file-modification-indicator"
+                        "separator"
+                        "version-control"
+                        "workspace-diagnostics"
                     ];
                     center = [];
                     right = [
-                        "primary-selection-length" "register" "position"
-                        "file-indent-style" "file-encoding" "file-line-ending"
+                        "primary-selection-length"
+                        "register"
+                        "position"
+                        "file-indent-style"
+                        "file-encoding"
+                        "file-line-ending"
                     ];
                 };
                 lsp.enable = true;

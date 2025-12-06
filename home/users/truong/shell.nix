@@ -1,9 +1,8 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
     programs = {
         bash = {
             enable = true;
-            enableCompletion =  true;
+            enableCompletion = true;
         };
         fish = {
             enable = true;

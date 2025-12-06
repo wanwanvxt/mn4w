@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
     home.packages = with pkgs; [
         noto-fonts
         noto-fonts-cjk-sans
@@ -18,10 +17,10 @@
     fonts.fontconfig = {
         enable = true;
         defaultFonts = {
-            serif = [ "Noto Serif" ];
-            sansSerif = [ "Noto Sans" ];
-            monospace = [ "0xProto Nerd Font" "Noto Sans Mono" ];
-            emoji = [ "Noto Color Emoji" ];
+            serif = ["Noto Serif"];
+            sansSerif = ["Noto Sans"];
+            monospace = ["0xProto Nerd Font" "Noto Sans Mono"];
+            emoji = ["Noto Color Emoji"];
         };
     };
 
@@ -69,7 +68,7 @@
 
     home = {
         sessionVariables.QT_QPA_PLATFORMTHEME = "hyprqt6engine";
-        sessionSearchVariables.QT_PLUGIN_PATH = [ "${pkgs.hyprqt6engine}/lib/qt-6" ];
+        sessionSearchVariables.QT_PLUGIN_PATH = ["${pkgs.hyprqt6engine}/lib/qt-6"];
     };
 
     xdg.configFile = {

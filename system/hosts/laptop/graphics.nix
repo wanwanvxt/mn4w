@@ -1,6 +1,5 @@
-{ ... }:
-{
-    services.xserver.videoDrivers = [ "nvidia" ];
+{...}: {
+    services.xserver.videoDrivers = ["nvidia"];
     hardware.nvidia = {
         open = true;
         modesetting.enable = true;
@@ -25,5 +24,5 @@
         SYMLINK+="dri/nvidia-dgpu"
     '';
 
-    environment.variables.AQ_DRM_DEVICES="/dev/dri/amd-igpu:/dev/dri/nvidia-dgpu";
+    environment.variables.AQ_DRM_DEVICES = "/dev/dri/amd-igpu:/dev/dri/nvidia-dgpu";
 }

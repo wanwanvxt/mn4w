@@ -1,8 +1,7 @@
-{ ... }:
-{
+{...}: {
     users.users.truong = {
         isNormalUser = true;
-        extraGroups = [ "wheel" "networkmanager" "gamemode" "input" ];
+        extraGroups = ["wheel" "networkmanager" "gamemode" "input"];
     };
 
     imports = [

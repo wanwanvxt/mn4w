@@ -1,5 +1,8 @@
-{ config, lib, ... }:
-let
+{
+    config,
+    lib,
+    ...
+}: let
     mkOpt = lib.mkOption {
         type = lib.types.attrsOf (lib.types.submodule {
             options = {
@@ -32,27 +35,39 @@ let
     filteredCfgXdgCfg = mkFilteredCfg cfgXdgCfg;
 
     mkActivationEntries = cfg: baseDir:
-        lib.mapAttrs (name: value:
-            let
+        lib.mapAttrs (
+            name: value: let
                 targetPath = "${baseDir}/${name}";
 
-                writeSourceCmd = if value.source != null then
-                        if lib.pathIsDirectory value.source then
-                            "run cp -r '${value.source}' '${targetPath}'"
+                writeSourceCmd =
+                    if value.source != null
+                    then
+                        if lib.pathIsDirectory value.source
+                        then "run cp -r '${value.source}' '${targetPath}'"
                         else "run install -Dm0644 '${value.source}' '${targetPath}'"
                     else "";
-                writeTextCmd = if value.text != null then
-                        let
-                            textList = lib.lists.toList value.text;
-                            fullText = lib.escapeShellArg (lib.concatStringsSep "\n" textList);
-                        in "run echo -e ${fullText} > '${targetPath}'"
+                writeTextCmd =
+                    if value.text != null
+                    then let
+                        textList = lib.lists.toList value.text;
+                        fullText = lib.escapeShellArg (lib.concatStringsSep "\n" textList);
+                    in "run echo -e ${fullText} > '${targetPath}'"
                     else "";
-                writeCmd = if writeSourceCmd != "" then writeSourceCmd else writeTextCmd;
+                writeCmd =
+                    if writeSourceCmd != ""
+                    then writeSourceCmd
+                    else writeTextCmd;
 
-                rmCmd = if value.override then "run rm -rf '${targetPath}'" else "";
-                chmodCmd = if value.executable then "run chmod +x '${targetPath}'" else "";
+                rmCmd =
+                    if value.override
+                    then "run rm -rf '${targetPath}'"
+                    else "";
+                chmodCmd =
+                    if value.executable
+                    then "run chmod +x '${targetPath}'"
+                    else "";
             in
-                lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+                lib.hm.dag.entryAfter ["writeBoundary"] ''
                     ${rmCmd}
                     if [ ! -e '${targetPath}' ]; then
                         run mkdir -p '$(dirname '${targetPath}')'
@@ -60,9 +75,9 @@ let
                         ${chmodCmd}
                     fi
                 ''
-        ) cfg;
-in
-{
+        )
+        cfg;
+in {
     options.writable = {
         homeFile = mkOpt;
         xdgConfigFile = mkOpt;

@@ -1,11 +1,10 @@
-{ ... }:
-{
+{...}: {
     nix = {
         enable = true;
         settings = {
-            allowed-users = [ "*" ];
+            allowed-users = ["*"];
             auto-optimise-store = true;
-            experimental-features = [ "nix-command" "flakes" ];
+            experimental-features = ["nix-command" "flakes"];
             keep-outputs = true;
             keep-derivations = true;
         };
