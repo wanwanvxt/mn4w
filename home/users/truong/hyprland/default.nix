@@ -1,17 +1,35 @@
-{ config, ... }:
+{ config, lib, ... }:
+let
+    readonlyCfgFiles = [
+        "general.conf"
+        "env.conf"
+        "bindings.conf"
+        "autostart.conf"
+        "rules.conf"
+    ];
+    scriptFiles = [
+        "boost.fish"
+        "screenshot.fish"
+        "wallpaper.fish"
+    ];
+
+    mkEntries = files: dir: executable:
+        lib.genAttrs files (f: {
+            source = ./${dir}/${f};
+            inherit executable;
+        });
+in
 {
     wayland.windowManager.hyprland = {
         enable = true;
         xwayland.enable = true;
         extraConfig = ''
             $HYPR_CONFIG_PATH = ${config.xdg.configHome}/hypr
-
             source = $HYPR_CONFIG_PATH/hyprland/colors.conf
-            source = $HYPR_CONFIG_PATH/hyprland/general.conf
-            source = $HYPR_CONFIG_PATH/hyprland/env.conf
-            source = $HYPR_CONFIG_PATH/hyprland/bindings.conf
-            source = $HYPR_CONFIG_PATH/hyprland/autostart.conf
-            source = $HYPR_CONFIG_PATH/hyprland/rules.conf
+            ${
+                builtins.concatStringsSep "\n"
+                    (builtins.map (f: "source = $HYPR_CONFIG_PATH/hyprland/${f}") readonlyCfgFiles)
+            }
             source = $HYPR_CONFIG_PATH/hyprland/custom.conf
         '';
     };
@@ -21,26 +39,11 @@
         "hypr/hyprland/custom.conf".source = ./config/custom.conf;
     };
 
-    xdg.configFile = {
-        "hypr/hyprland/general.conf".source = ./config/general.conf;
-        "hypr/hyprland/env.conf".source = ./config/env.conf;
-        "hypr/hyprland/bindings.conf".source = ./config/bindings.conf;
-        "hypr/hyprland/autostart.conf".source = ./config/autostart.conf;
-        "hypr/hyprland/rules.conf".source = ./config/rules.conf;
-
-        "hypr/hyprland/scripts/boost.fish" = {
-            source = ./scripts/boost.fish;
-            executable = true;
-        };
-        "hypr/hyprland/scripts/wallpaper.fish" = {
-            source = ./scripts/wallpaper.fish;
-            executable = true;
-        };
-        "hypr/hyprland/scripts/screenshot.fish" = {
-            source = ./scripts/screenshot.fish;
-            executable = true;
-        };
-    };
+    xdg.configFile = (lib.mapAttrs'
+        (name: value: (lib.nameValuePair "hypr/hyprland/${name}" value)) (mkEntries readonlyCfgFiles "./config" false)
+    ) // (lib.mapAttrs'
+        (name: value: (lib.nameValuePair "hypr/hyprland/scripts/${name}" value)) (mkEntries scriptFiles "./scripts" true)
+    );
 
     services.hyprpaper.enable = true;
 }
