@@ -49,18 +49,16 @@ let
                     else "";
                 writeCmd = if writeSourceCmd != "" then writeSourceCmd else writeTextCmd;
 
-                checkSkipCmd = if !value.override then
-                        "if [ -e '${targetPath}' ]; then exit 0; fi"
-                    else "";
                 rmCmd = if value.override then "run rm -rf '${targetPath}'" else "";
                 chmodCmd = if value.executable then "run chmod +x '${targetPath}'" else "";
             in
                 lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-                    ${checkSkipCmd}
                     ${rmCmd}
-                    run mkdir -p '$(dirname '${targetPath}')'
-                    ${writeCmd}
-                    ${chmodCmd}
+                    if [ ! -e '${targetPath}' ]; then
+                        run mkdir -p '$(dirname '${targetPath}')'
+                        ${writeCmd}
+                        ${chmodCmd}
+                    fi
                 ''
         ) cfg;
 in
