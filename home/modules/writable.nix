@@ -27,41 +27,42 @@ let
     cfgHome = config.writable.homeFile;
     cfgXdgCfg = config.writable.xdgConfigFile;
 
-    mkFilteredCfg = cfg: lib.filterAttrs (_: value: value.source != null || value.text != null) cfg;
+    mkFilteredCfg = cfg: (lib.filterAttrs (_: value: value.source != null || value.text != null) cfg);
     filteredCfgHome = mkFilteredCfg cfgHome;
     filteredCfgXdgCfg = mkFilteredCfg cfgXdgCfg;
 
-    mkActivationEntries = cfg: baseDir: lib.mapAttrs (name: value:
-        let
-            targetPath = "${baseDir}/${name}";
+    mkActivationEntries = cfg: baseDir:
+        lib.mapAttrs (name: value:
+            let
+                targetPath = "${baseDir}/${name}";
 
-            writeSourceCmd = if value.source != null then
-                    if lib.pathIsDirectory value.source then
-                        "run cp -r '${value.source}' '${targetPath}'"
-                    else "run install -Dm0644 '${value.source}' '${targetPath}'"
-                else "";
-            writeTextCmd = if value.text != null then
-                    let
-                        textList = lib.lists.toList value.text;
-                        fullText = lib.escapeShellArg (lib.concatStringsSep "\n" textList);
-                    in "run echo -e ${fullText} > '${targetPath}'"
-                else "";
-            writeCmd = if writeSourceCmd != "" then writeSourceCmd else writeTextCmd;
+                writeSourceCmd = if value.source != null then
+                        if lib.pathIsDirectory value.source then
+                            "run cp -r '${value.source}' '${targetPath}'"
+                        else "run install -Dm0644 '${value.source}' '${targetPath}'"
+                    else "";
+                writeTextCmd = if value.text != null then
+                        let
+                            textList = lib.lists.toList value.text;
+                            fullText = lib.escapeShellArg (lib.concatStringsSep "\n" textList);
+                        in "run echo -e ${fullText} > '${targetPath}'"
+                    else "";
+                writeCmd = if writeSourceCmd != "" then writeSourceCmd else writeTextCmd;
 
-            checkSkipCmd = if !value.override then
-                    "if [ -e '${targetPath}' ]; then exit 0; fi"
-                else "";
-            rmCmd = if value.override then "run rm -rf '${targetPath}'" else "";
-            chmodCmd = if value.executable then "run chmod +x '${targetPath}'" else "";
-        in
-            lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-                ${checkSkipCmd}
-                ${rmCmd}
-                run mkdir -p '$(dirname '${targetPath}')'
-                ${writeCmd}
-                ${chmodCmd}
-            ''
-    ) cfg;
+                checkSkipCmd = if !value.override then
+                        "if [ -e '${targetPath}' ]; then exit 0; fi"
+                    else "";
+                rmCmd = if value.override then "run rm -rf '${targetPath}'" else "";
+                chmodCmd = if value.executable then "run chmod +x '${targetPath}'" else "";
+            in
+                lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+                    ${checkSkipCmd}
+                    ${rmCmd}
+                    run mkdir -p '$(dirname '${targetPath}')'
+                    ${writeCmd}
+                    ${chmodCmd}
+                ''
+        ) cfg;
 in
 {
     options.writable = {
