@@ -15,7 +15,7 @@ end
 
 set -l copy_cmd ""
 if type -q rsync
-    set copy_cmd rsync -av --delete --exclude=.git "$source_dir" "$target_dir"
+    set copy_cmd rsync -av --delete --exclude=.git "$source_dir/" "$target_dir"
 else
     set copy_cmd cp -rT "$source_dir" "$target_dir"
 end
