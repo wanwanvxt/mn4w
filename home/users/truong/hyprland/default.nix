@@ -17,14 +17,8 @@
     };
 
     writable.xdgConfigFile = {
-        "hypr/hyprland/colors.conf" = {
-            source = ./config/colors.conf;
-            override = false;
-        };
-        "hypr/hyprland/custom.conf" = {
-            text = "";
-            override = false;
-        };
+        "hypr/hyprland/colors.conf".source = ./config/colors.conf;
+        "hypr/hyprland/custom.conf".source = ./config/custom.conf;
     };
 
     xdg.configFile = {
