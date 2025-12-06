@@ -4,51 +4,45 @@
         enable = true;
         xwayland.enable = true;
         extraConfig = ''
-            $HYPR_CONFIG_DIR = ${config.xdg.configHome}/hypr
+            $HYPR_CONFIG_PATH = ${config.xdg.configHome}/hypr
 
-            ## COLORS
-            source = $HYPR_CONFIG_DIR/colors.conf
-            ## GENERAL
-            ${builtins.readFile ./config/general.conf}
-            ## ENV
-            ${builtins.readFile ./config/env.conf}
-            ## BINDINGS
-            ${builtins.readFile ./config/bindings.conf}
-            ## AUTOSTART
-            ${builtins.readFile ./config/autostart.conf}
-            ## RULES
-            ${builtins.readFile ./config/rules.conf}
-            ## CUSTOM
-            source = $HYPR_CONFIG_DIR/custom.conf
+            source = $HYPR_CONFIG_PATH/hyprland/colors.conf
+            source = $HYPR_CONFIG_PATH/hyprland/general.conf
+            source = $HYPR_CONFIG_PATH/hyprland/env.conf
+            source = $HYPR_CONFIG_PATH/hyprland/bindings.conf
+            source = $HYPR_CONFIG_PATH/hyprland/autostart.conf
+            source = $HYPR_CONFIG_PATH/hyprland/rules.conf
+            source = $HYPR_CONFIG_PATH/hyprland/custom.conf
         '';
     };
 
     writable.xdgConfigFile = {
-        "hypr/colors.conf" = {
+        "hypr/hyprland/colors.conf" = {
             source = ./config/colors.conf;
             override = false;
         };
-        "hypr/custom.conf" = {
+        "hypr/hyprland/custom.conf" = {
             text = "";
             override = false;
         };
     };
 
-    # xdg.configFile."hypr/scripts" = {
-    #     source = ./scripts;
-    #     recursive = true;
-    #     executable = true;
-    # };
     xdg.configFile = {
-        "hypr/scripts/boost.fish" = {
+        "hypr/hyprland/general.conf".source = ./config/general.conf;
+        "hypr/hyprland/env.conf".source = ./config/env.conf;
+        "hypr/hyprland/bindings.conf".source = ./config/bindings.conf;
+        "hypr/hyprland/autostart.conf".source = ./config/autostart.conf;
+        "hypr/hyprland/rules.conf".source = ./config/rules.conf;
+
+        "hypr/hyprland/scripts/boost.fish" = {
             source = ./scripts/boost.fish;
             executable = true;
         };
-        "hypr/scripts/wallpaper.fish" = {
+        "hypr/hyprland/scripts/wallpaper.fish" = {
             source = ./scripts/wallpaper.fish;
             executable = true;
         };
-        "hypr/scripts/screenshot.fish" = {
+        "hypr/hyprland/scripts/screenshot.fish" = {
             source = ./scripts/screenshot.fish;
             executable = true;
         };
