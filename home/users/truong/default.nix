@@ -16,7 +16,7 @@
         vlc pqiv aseprite qalculate-qt
 
         # utilities
-        bash-language-server fish-lsp nixd
+        bash-language-server fish-lsp nixd alejandra
         xdg-utils libnotify brightnessctl
         wl-clipboard slurp wayshot jq
         nvtopPackages.full tree unrar
