@@ -28,7 +28,6 @@
         bash-language-server
         fish-lsp
         nixd
-        alejandra
         xdg-utils
         libnotify
         brightnessctl
