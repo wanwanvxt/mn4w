@@ -31,14 +31,13 @@
         xdg-utils
         libnotify
         brightnessctl
+        nvtopPackages.full
         wl-clipboard
         slurp
         wayshot
         jq
-        nvtopPackages.full
         tree
         unrar
-        libqalculate
     ];
 
     imports = [
