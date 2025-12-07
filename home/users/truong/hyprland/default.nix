@@ -41,14 +41,8 @@ in {
     };
 
     xdg.configFile =
-        (
-            lib.mapAttrs'
-            (name: value: (lib.nameValuePair "hypr/hyprland/${name}" value)) (mkEntries readonlyCfgFiles "./config" false)
-        )
-        // (
-            lib.mapAttrs'
-            (name: value: (lib.nameValuePair "hypr/hyprland/scripts/${name}" value)) (mkEntries scriptFiles "./scripts" true)
-        );
+        (lib.mapAttrs' (name: value: (lib.nameValuePair "hypr/hyprland/${name}" value)) (mkEntries readonlyCfgFiles "./config" false))
+        // (lib.mapAttrs' (name: value: (lib.nameValuePair "hypr/hyprland/scripts/${name}" value)) (mkEntries scriptFiles "./scripts" true));
 
     services.hyprpaper.enable = true;
 }

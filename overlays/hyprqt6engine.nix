@@ -6,8 +6,6 @@ final: prev: {
 
         nativeBuildInputs =
             (oldAttrs.nativeBuildInputs or [])
-            ++ [
-                prev.kdePackages.extra-cmake-modules
-            ];
+            ++ [prev.kdePackages.extra-cmake-modules];
     });
 }
