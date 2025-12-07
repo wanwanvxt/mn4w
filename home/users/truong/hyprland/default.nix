@@ -1,5 +1,6 @@
 {
     config,
+    pkgs,
     lib,
     ...
 }: let
@@ -22,6 +23,13 @@
             inherit executable;
         });
 in {
+    home.packages = with pkgs; [
+        wl-clipboard
+        slurp
+        wayshot
+        jq
+    ];
+
     wayland.windowManager.hyprland = {
         enable = true;
         xwayland.enable = true;

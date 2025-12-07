@@ -32,10 +32,6 @@
         libnotify
         brightnessctl
         nvtopPackages.full
-        wl-clipboard
-        slurp
-        wayshot
-        jq
         tree
         unrar
     ];
