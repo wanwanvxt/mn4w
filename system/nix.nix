@@ -15,10 +15,5 @@
         };
     };
 
-    system.autoUpgrade = {
-        enable = true;
-        dates = "weekly";
-    };
-
     nixpkgs.config.allowUnfree = true;
 }
