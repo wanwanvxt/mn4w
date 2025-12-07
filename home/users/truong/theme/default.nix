@@ -9,7 +9,6 @@
         papirus-icon-theme
         bibata-cursors
         sound-theme-freedesktop
-        hyprqt6engine
         kdePackages.breeze
         kdePackages.qqc2-desktop-style
     ];
@@ -59,35 +58,12 @@
     # Qt
     qt = {
         enable = true;
-        platformTheme.name = null;
+        platformTheme.name = "qtct";
         kde.settings.kdeglobals = {
             Icons.Theme = "Papirus-Dark";
             Sounds.Theme = "freedesktop";
         };
     };
 
-    home = {
-        sessionVariables.QT_QPA_PLATFORMTHEME = "hyprqt6engine";
-        sessionSearchVariables.QT_PLUGIN_PATH = ["${pkgs.hyprqt6engine}/lib/qt-6"];
-    };
-
-    xdg.configFile = {
-        "hypr/hyprqt6engine.conf".text = ''
-            theme {
-                style = Breeze
-                color_scheme = ${pkgs.kdePackages.breeze}/share/color-schemes/BreezeDark.colors
-                icon_theme = Papirus-Dark
-                font = Noto Sans
-                font_size = 10
-                font_fixed = Noto Sans
-                font_fixed_size = 10
-            }
-
-            misc {
-                single_click_activate = true
-                menus_have_icons = true
-                shortcuts_for_context_menus = true
-            }
-        '';
-    };
+    xdg.configFile."qt6ct/qt6ct.conf".text = builtins.replaceStrings ["%COLOR_SCHEME_PATH%"] ["${pkgs.kdePackages.qt6ct}/share/qt6ct/colors/darker.conf"] (builtins.readFile ./qt6ct.conf);
 }

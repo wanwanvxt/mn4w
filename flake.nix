@@ -15,10 +15,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        hyprqt6engine = {
-            url = "github:hyprwm/hyprqt6engine";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
         quickshell = {
             url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -49,7 +45,6 @@
                         ./system/hosts/${hostname}
                         {
                             nixpkgs.overlays = [
-                                inputs.hyprqt6engine.overlays.default
                                 inputs.quickshell.overlays.default
                                 inputs.self.overlays.default
                             ];

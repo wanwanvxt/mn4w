@@ -50,8 +50,8 @@
         ./shell.nix
         ./ssh.nix
         ./starship.nix
-        ./theme.nix
-        ./xdg.nix
+        ./theme
         ./vesktop.nix
+        ./xdg.nix
     ];
 }
