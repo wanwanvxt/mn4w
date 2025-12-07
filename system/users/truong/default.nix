@@ -7,5 +7,6 @@
     imports = [
         ./gaming.nix
         ./locales.nix
+        ./misc.nix
     ];
 }
