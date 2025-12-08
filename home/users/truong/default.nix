@@ -5,49 +5,31 @@
 }: {
     home.stateVersion = osConfig.system.stateVersion;
 
-    programs = {
-        quickshell.enable = true;
-        firefox.enable = true;
-    };
-    services = {
-        playerctld.enable = true;
-    };
-    home.packages = with pkgs; [
-        # gui apps
-        kdePackages.qtsvg
-        kdePackages.kio-fuse
-        kdePackages.kio-extras
-        kdePackages.dolphin
-        kdePackages.ark
-        vlc
-        pqiv
-        aseprite
-        qalculate-qt
-
-        # utilities
-        bash-language-server
-        fish-lsp
-        nixd
-        xdg-utils
-        libnotify
-        brightnessctl
-        nvtopPackages.full
-        tree
-        unrar
+    imports = [
+        ./xdg.nix
+        ./ime.nix
+        ./shell.nix
+        ./starship.nix
+        ./ssh.nix
+        ./git.nix
+        ./hyprland
+        ./theme
+        ./kitty.nix
+        ./helix.nix
+        ./btop.nix
+        ./dolphin.nix
+        ./vesktop.nix
     ];
 
-    imports = [
-        ./btop.nix
-        ./git.nix
-        ./helix.nix
-        ./hyprland
-        ./ime.nix
-        ./kitty.nix
-        ./shell.nix
-        ./ssh.nix
-        ./starship.nix
-        ./theme
-        ./vesktop.nix
-        ./xdg.nix
+    programs = {
+        quickshell.enable = true;
+    };
+    home.packages = with pkgs; [
+        vlc
+        qimgv
+        aseprite
+        qalculate-qt
+        nixd
+        tree
     ];
 }

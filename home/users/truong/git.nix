@@ -12,6 +12,7 @@
                 };
             };
         };
+
         lazygit.enable = true;
     };
 }

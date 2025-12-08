@@ -5,8 +5,8 @@
     };
 
     imports = [
-        ./gaming.nix
         ./locales.nix
+        ./gaming.nix
         ./misc.nix
     ];
 }

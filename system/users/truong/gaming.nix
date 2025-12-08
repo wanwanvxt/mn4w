@@ -5,6 +5,7 @@
             localNetworkGameTransfers.openFirewall = true;
             remotePlay.openFirewall = true;
         };
+
         gamemode = {
             enable = true;
             settings = {

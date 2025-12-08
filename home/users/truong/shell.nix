@@ -11,8 +11,14 @@
         };
     };
 
-    home.shell = {
-        enableBashIntegration = true;
-        enableFishIntegration = true;
+    home = {
+        shell = {
+            enableBashIntegration = true;
+            enableFishIntegration = true;
+        };
+        packages = with pkgs; [
+            bash-language-server
+            fish-lsp
+        ];
     };
 }

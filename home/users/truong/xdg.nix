@@ -22,4 +22,8 @@
             templates = "$HOME/others";
         };
     };
+
+    home.packages = with pkgs; [
+        xdg-utils
+    ];
 }

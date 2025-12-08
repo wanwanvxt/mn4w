@@ -23,12 +23,26 @@
             inherit executable;
         });
 in {
+    programs = {
+        kitty.enable = true;
+        firefox.enable = true;
+        btop.enable = true;
+    };
+
     home.packages = with pkgs; [
+        kdePackages.dolphin
+        nvtopPackages.full
+        brightnessctl
+        jq
         wl-clipboard
         slurp
         wayshot
-        jq
     ];
+
+    services = {
+        hyprpaper.enable = true;
+        playerctld.enable = true;
+    };
 
     wayland.windowManager.hyprland = {
         enable = true;
@@ -51,6 +65,4 @@ in {
     xdg.configFile =
         (lib.mapAttrs' (name: value: (lib.nameValuePair "hypr/hyprland/${name}" value)) (mkEntries readonlyCfgFiles "./config" false))
         // (lib.mapAttrs' (name: value: (lib.nameValuePair "hypr/hyprland/scripts/${name}" value)) (mkEntries scriptFiles "./scripts" true));
-
-    services.hyprpaper.enable = true;
 }
