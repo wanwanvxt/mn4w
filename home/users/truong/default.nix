@@ -21,9 +21,6 @@
         ./vesktop.nix
     ];
 
-    programs = {
-        quickshell.enable = true;
-    };
     home.packages = with pkgs; [
         vlc
         qimgv
