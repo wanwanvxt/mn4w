@@ -39,38 +39,33 @@
             name: value: let
                 targetPath = "${baseDir}/${name}";
 
-                writeSourceCmd =
+                writeCmd =
                     if value.source != null
                     then
                         if lib.pathIsDirectory value.source
-                        then "run cp -r '${value.source}' '${targetPath}'"
-                        else "run install -Dm0644 '${value.source}' '${targetPath}'"
-                    else "";
-                writeTextCmd =
-                    if value.text != null
+                        then "run cp -r '${value.source}' \"$TARGET\""
+                        else "run install -Dm0644 '${value.source}' \"$TARGET\""
+                    else if value.text != null
                     then let
                         textList = lib.lists.toList value.text;
                         fullText = lib.escapeShellArg (lib.concatStringsSep "\n" textList);
-                    in "run echo -e ${fullText} > '${targetPath}'"
+                    in "run echo -e ${fullText} > \"$TARGET\""
                     else "";
-                writeCmd =
-                    if writeSourceCmd != ""
-                    then writeSourceCmd
-                    else writeTextCmd;
 
                 rmCmd =
                     if value.override
-                    then "run rm -rf '${targetPath}'"
+                    then "run rm -rf \"$TARGET\""
                     else "";
                 chmodCmd =
                     if value.executable
-                    then "run chmod +x '${targetPath}'"
+                    then "run chmod +x \"$TARGET\""
                     else "";
             in
                 lib.hm.dag.entryAfter ["writeBoundary"] ''
+                    TARGET='${targetPath}'
                     ${rmCmd}
-                    if [ ! -e '${targetPath}' ]; then
-                        run mkdir -p '$(dirname '${targetPath}')'
+                    if [ ! -e "$TARGET" ]; then
+                        run mkdir -p '$(dirname "$TARGET")'
                         ${writeCmd}
                         ${chmodCmd}
                     fi
