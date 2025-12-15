@@ -12,6 +12,7 @@
         vlc
         aseprite
         qalculate-qt
+        wev
         nixd
         tree
     ];
