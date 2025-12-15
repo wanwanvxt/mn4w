@@ -1,0 +1,6 @@
+tree-root-file = "flake.nix"
+
+[formatter.alejandra]
+command = "alejandra"
+includes = ["*.nix"]
+excludes = ["*/hardware-configuration.nix"]

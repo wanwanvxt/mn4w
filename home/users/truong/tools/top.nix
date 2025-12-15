@@ -1,4 +1,8 @@
-{...}: {
+{pkgs, ...}: {
+    home.packages = with pkgs; [
+        nvtopPackages.full
+    ];
+
     programs.btop = {
         enable = true;
         settings = {

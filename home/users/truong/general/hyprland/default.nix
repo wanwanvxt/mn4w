@@ -23,20 +23,12 @@
             inherit executable;
         });
 in {
-    programs = {
-        kitty.enable = true;
-        firefox.enable = true;
-        btop.enable = true;
-    };
-
     home.packages = with pkgs; [
-        kdePackages.dolphin
-        nvtopPackages.full
         brightnessctl
         jq
-        wl-clipboard
         slurp
         wayshot
+        wl-clipboard
     ];
 
     services = {
@@ -48,12 +40,12 @@ in {
         enable = true;
         xwayland.enable = true;
         extraConfig = ''
-            $HYPR_CONFIG_PATH = ${config.xdg.configHome}/hypr
-            source = $HYPR_CONFIG_PATH/hyprland/colors.conf
+            $HYPR_CONFIG_DIR = ${config.xdg.configHome}/hypr
+            source = $HYPR_CONFIG_DIR/hyprland/colors.conf
             ${
-                builtins.concatStringsSep "\n" (builtins.map (f: "source = $HYPR_CONFIG_PATH/hyprland/${f}") readonlyCfgFiles)
+                builtins.concatStringsSep "\n" (builtins.map (f: "source = $HYPR_CONFIG_DIR/hyprland/${f}") readonlyCfgFiles)
             }
-            source = $HYPR_CONFIG_PATH/hyprland/custom.conf
+            source = $HYPR_CONFIG_DIR/hyprland/custom.conf
         '';
     };
 

@@ -1,0 +1,19 @@
+{pkgs, ...}: {
+    gtk = {
+        enable = true;
+        theme.name = "Adwaita";
+        iconTheme = {
+            package = pkgs.papirus-icon-theme;
+            name = "Papirus-Dark";
+        };
+        font = {
+            package = pkgs.noto-fonts;
+            name = "Noto Sans";
+            size = 10;
+        };
+    };
+
+    dconf.settings."org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+    };
+}

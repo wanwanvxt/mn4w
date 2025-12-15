@@ -5,10 +5,6 @@
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
         systems.url = "github:nix-systems/default-linux";
-        treefmt-nix = {
-            url = "github:numtide/treefmt-nix";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
 
         home-manager = {
             url = "github:nix-community/home-manager";
@@ -20,15 +16,9 @@
         myOverlays = import ./overlays;
         myHomeModules = import ./home/modules;
 
-        eachSystem = f: inputs.nixpkgs.lib.genAttrs (import inputs.systems) (system: f inputs.nixpkgs.legacyPackages.${system});
-
-        treefmtEval = eachSystem (pkgs:
-            inputs.treefmt-nix.lib.evalModule pkgs {
-                projectRootFile = "flake.nix";
-                settings.global.excludes = ["*/hardware-configuration.nix"];
-
-                programs.alejandra.enable = true;
-            });
+        eachSystem = f:
+            inputs.nixpkgs.lib.genAttrs (import inputs.systems)
+            (system: f inputs.nixpkgs.legacyPackages.${system});
 
         mkSystem = system: hostname: users:
             inputs.nixpkgs.lib.nixosSystem {
@@ -64,14 +54,20 @@
             };
     in {
         # `nix fmt`
-        formatter = eachSystem (pkgs: treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper);
+        formatter = eachSystem (
+            pkgs:
+                pkgs.treefmt.withConfig {
+                    runtimeInputs = with pkgs; [alejandra];
+                    settings = pkgs.lib.importTOML ./treefmt.toml;
+                }
+        );
         # overlays
         overlays =
             myOverlays
             // {
                 default = inputs.nixpkgs.lib.composeManyExtensions (builtins.attrValues myOverlays);
             };
-        # `nixos-rebuild --flake ./#<hostname>`
+        # `nixos-rebuild --flake .#<hostname>`
         nixosConfigurations = {
             laptop = mkSystem "x86_64-linux" "laptop" ["truong"];
         };
