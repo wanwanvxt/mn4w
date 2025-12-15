@@ -65,7 +65,8 @@
                     TARGET='${targetPath}'
                     ${rmCmd}
                     if [ ! -e "$TARGET" ]; then
-                        run mkdir -p '$(dirname "$TARGET")'
+                        TARGET_DIR="$(dirname "$TARGET")"
+                        run mkdir -p "$TARGET_DIR"
                         ${writeCmd}
                         ${chmodCmd}
                     fi
