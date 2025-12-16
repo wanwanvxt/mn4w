@@ -27,3 +27,4 @@ while true
 end
 
 hyprctl -q hyprpaper reload ,"$new_wallpaper"
+matugen image -qm dark "$new_wallpaper"

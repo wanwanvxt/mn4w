@@ -22,6 +22,7 @@ in {
         slurp
         wayshot
         wl-clipboard
+        matugen
     ];
 
     services = {
