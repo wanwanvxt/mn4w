@@ -1,27 +1,20 @@
 {
     config,
     pkgs,
-    lib,
     ...
 }: let
-    readonlyCfgFiles = [
-        "general.conf"
-        "env.conf"
-        "bindings.conf"
-        "autostart.conf"
-        "rules.conf"
+    cfgs = [
+        "general"
+        "env"
+        "bindings"
+        "autostart"
+        "rules"
     ];
-    scriptFiles = [
+    scripts = [
         "boost.fish"
         "screenshot.fish"
         "wallpaper.fish"
     ];
-
-    mkEntries = files: dir: executable:
-        lib.genAttrs files (f: {
-            source = ./${dir}/${f};
-            inherit executable;
-        });
 in {
     home.packages = with pkgs; [
         brightnessctl
@@ -42,19 +35,30 @@ in {
         extraConfig = ''
             $hypr_config_dir = ${config.xdg.configHome}/hypr
             source = $hypr_config_dir/hyprland/colors.conf
-            ${
-                builtins.concatStringsSep "\n" (builtins.map (f: "source = $hypr_config_dir/hyprland/${f}") readonlyCfgFiles)
-            }
+            ${builtins.concatStringsSep "\n" (builtins.map (f: "source = $hypr_config_dir/hyprland/${f}.conf") cfgs)}
             source = $hypr_config_dir/hyprland/custom.conf
         '';
     };
 
     writable.xdgConfigFile = {
         "hypr/hyprland/colors.conf".source = ./config/colors.conf;
-        "hypr/hyprland/custom.conf".source = ./config/custom.conf;
+        "hypr/hyprland/custom.conf".text = "# write custom config here";
     };
 
     xdg.configFile =
-        (lib.mapAttrs' (name: value: (lib.nameValuePair "hypr/hyprland/${name}" value)) (mkEntries readonlyCfgFiles "./config" false))
-        // (lib.mapAttrs' (name: value: (lib.nameValuePair "hypr/hyprland/scripts/${name}" value)) (mkEntries scriptFiles "./scripts" true));
+        (builtins.listToAttrs (builtins.map (f: {
+            name = "hypr/hyprland/${f}.conf";
+            value = {
+                source = ./config/${f}.conf;
+            };
+        })
+        cfgs))
+        // (builtins.listToAttrs (builtins.map (f: {
+            name = "hypr/hyprland/scripts/${f}";
+            value = {
+                source = ./scripts/${f};
+                executable = true;
+            };
+        })
+        scripts));
 }
