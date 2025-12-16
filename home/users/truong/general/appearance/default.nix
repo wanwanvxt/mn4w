@@ -4,5 +4,6 @@
         ./fontconfig.nix
         ./qt
         ./gtk.nix
+        ./matugen
     ];
 }
