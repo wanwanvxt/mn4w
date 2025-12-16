@@ -26,6 +26,12 @@ in {
                     input_path = "${config.xdg.configHome}/matugen/templates/hyprland.conf";
                     output_path = "${config.xdg.configHome}/hypr/hyprland/colors.conf";
                 };
+            })
+            // (lib.optionalAttrs (config.qt.enable && config.qt.platformTheme.name == "qtct") {
+                qtct = {
+                    input_path = "${config.xdg.configHome}/matugen/templates/qtct.conf";
+                    output_path = "${config.xdg.configHome}/qt6ct/colors/qtct.conf";
+                };
             });
     };
 }
