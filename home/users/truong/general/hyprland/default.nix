@@ -40,12 +40,12 @@ in {
         enable = true;
         xwayland.enable = true;
         extraConfig = ''
-            $HYPR_CONFIG_DIR = ${config.xdg.configHome}/hypr
-            source = $HYPR_CONFIG_DIR/hyprland/colors.conf
+            $hypr_config_dir = ${config.xdg.configHome}/hypr
+            source = $hypr_config_dir/hyprland/colors.conf
             ${
-                builtins.concatStringsSep "\n" (builtins.map (f: "source = $HYPR_CONFIG_DIR/hyprland/${f}") readonlyCfgFiles)
+                builtins.concatStringsSep "\n" (builtins.map (f: "source = $hypr_config_dir/hyprland/${f}") readonlyCfgFiles)
             }
-            source = $HYPR_CONFIG_DIR/hyprland/custom.conf
+            source = $hypr_config_dir/hyprland/custom.conf
         '';
     };
 
