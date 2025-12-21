@@ -18,13 +18,12 @@
             ];
             username = {
                 format = "[\\[$user]($style)";
-                style_user = "green";
-                style_root = "red";
+                style_user = "bright-green";
                 show_always = true;
             };
             hostname = {
                 format = "[$hostname\\]]($style)";
-                style = "green";
+                style = "bright-green";
                 ssh_only = false;
             };
             directory = {
