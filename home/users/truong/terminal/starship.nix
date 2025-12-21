@@ -41,6 +41,18 @@
             git_status = {
                 format = "[\\[$all_status$ahead_behind\\]]($style)";
                 style = "bright-blue";
+                conflicted = "=";
+                ahead = ">";
+                behind = "<";
+                diverged = "/";
+                up_to_date = "";
+                untracked = "?";
+                stashed = "$";
+                modified = "!";
+                staged = "+";
+                renamed = "~";
+                deleted = "x";
+                typechanged = "%";
             };
             cmd_duration = {
                 format = " [\\[$duration\\]]($style) ";
