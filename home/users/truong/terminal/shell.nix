@@ -7,7 +7,10 @@
         fish = {
             enable = true;
             generateCompletions = true;
-            interactiveShellInit = "set -p fish_complete_path ${pkgs.fish}/share/fish/completions";
+            interactiveShellInit = ''
+                set -p fish_complete_path ${pkgs.fish}/share/fish/completions
+                set -g fish_greeting
+            '';
         };
     };
 
