@@ -2,64 +2,64 @@
     programs.starship = {
         enable = true;
         settings = {
+            add_newline = false;
             format = lib.concatStrings [
                 "$username"
-                "[@](bold bright-green)"
+                "[@](bright-green)"
                 "$hostname"
-                " $directory "
+                "$directory"
                 "$git_branch"
                 "$git_status"
                 "$cmd_duration"
                 "$line_break"
-                "$shell "
+                "$shell"
                 "$status"
-                "$character "
+                "$character"
             ];
             username = {
                 format = "[\\[$user]($style)";
-                style_user = "bold green";
-                style_root = "bold red";
+                style_user = "green";
+                style_root = "red";
                 show_always = true;
             };
             hostname = {
                 format = "[$hostname\\]]($style)";
-                style = "bold green";
+                style = "green";
                 ssh_only = false;
             };
             directory = {
-                format = "[$path]($style)[$read_only]($read_only_style)";
-                style = "bold cyan";
+                format = " [\\[$path\\]]($style)[$read_only]($read_only_style) ";
+                style = "cyan";
                 read_only_style = "red";
-                read_only = "󰌾";
+                read_only = "[readonly]";
                 truncate_to_repo = false;
             };
             git_branch = {
-                format = "[\\[$symbol $branch\\]]($style)";
-                style = "bold purple";
-                symbol = "";
+                format = "[\\[$branch\\]]($style)";
+                style = "purple";
             };
             git_status = {
                 format = "[\\[$all_status$ahead_behind\\]]($style)";
-                style = "bold bright-blue";
+                style = "bright-blue";
             };
             cmd_duration = {
-                format = "[\\[󱎫 $duration\\]]($style)";
-                style = "bold yellow";
+                format = " [\\[$duration\\]]($style) ";
+                style = "yellow";
             };
             shell = {
-                format = "[$indicator]($style)";
-                style = "bold white";
+                format = "[$indicator]($style) ";
+                style = "white";
                 disabled = false;
             };
             status = {
                 format = "[\\[$status\\]]($style)";
-                style = "bold red";
+                style = "red";
                 disabled = false;
             };
             character = {
-                format = "[$symbol]($style)";
-                success_symbol = "[](bold green)";
-                error_symbol = "[](bold red)";
+                format = "$symbol ";
+                success_symbol = "[~>](green)";
+                error_symbol = "[>](red)";
             };
         };
     };
