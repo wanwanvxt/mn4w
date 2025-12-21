@@ -2,7 +2,7 @@
     programs.kitty = {
         enable = true;
         settings = {
-            font_family = "0xProto Nerd Font";
+            font_family = "monospace";
             font_size = 10;
             remember_window_size = false;
             background_opacity = 0.75;
