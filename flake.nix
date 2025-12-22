@@ -15,7 +15,6 @@
 
     outputs = inputs @ {...}: let
         myOverlays = import ./overlays;
-        myHomeModules = import ./home/modules;
 
         eachSystem = f:
             inputs.nixpkgs.lib.genAttrs (import inputs.systems)
@@ -25,33 +24,17 @@
             inputs.nixpkgs.lib.nixosSystem {
                 inherit system;
                 specialArgs = {inherit inputs;};
-                modules =
-                    [
-                        ./system
-                        ./system/hosts/${hostname}
-                        {
-                            nixpkgs.overlays = [
-                                inputs.self.overlays.default
-                            ];
-                            networking.hostName = hostname;
-                        }
-                        ###################################################################
-                        inputs.home-manager.nixosModules.home-manager
-                        {
-                            home-manager = {
-                                useUserPackages = true;
-                                useGlobalPkgs = true;
-                                extraSpecialArgs = {inherit inputs;};
-                                sharedModules = builtins.attrValues myHomeModules;
-                                users = builtins.listToAttrs (builtins.map (user: {
-                                    name = user;
-                                    value = ./home/users/${user};
-                                })
-                                users);
-                            };
-                        }
-                    ]
-                    ++ (builtins.map (user: ./system/users/${user}) users);
+                modules = [
+                    {
+                        system.stateVersion = "25.05";
+                        nixpkgs.overlays = [
+                            inputs.self.overlays.default
+                        ];
+                        networking.hostName = hostname;
+                    }
+                    ./modules/hosts/${hostname}
+                    inputs.home-manager.nixosModules.home-manager
+                ];
             };
     in {
         # `nix fmt`
