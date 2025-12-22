@@ -20,7 +20,7 @@
             inputs.nixpkgs.lib.genAttrs (import inputs.systems)
             (system: f inputs.nixpkgs.legacyPackages.${system});
 
-        mkSystem = system: hostname: users:
+        mkSystem = system: hostname:
             inputs.nixpkgs.lib.nixosSystem {
                 inherit system;
                 specialArgs = {inherit inputs;};
@@ -53,7 +53,7 @@
             };
         # `nixos-rebuild --flake .#<hostname>`
         nixosConfigurations = {
-            laptop = mkSystem "x86_64-linux" "laptop" ["truong"];
+            laptop = mkSystem "x86_64-linux" "laptop";
         };
     };
 }
