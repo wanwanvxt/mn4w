@@ -20,21 +20,23 @@
             inputs.nixpkgs.lib.genAttrs (import inputs.systems)
             (system: f inputs.nixpkgs.legacyPackages.${system});
 
-        mkSystem = system: hostname:
+        mkSystem = system: hostname: users:
             inputs.nixpkgs.lib.nixosSystem {
                 inherit system;
                 specialArgs = {inherit inputs;};
-                modules = [
-                    {
-                        system.stateVersion = "25.05";
-                        nixpkgs.overlays = [
-                            inputs.self.overlays.default
-                        ];
-                        networking.hostName = hostname;
-                    }
-                    ./modules/hosts/${hostname}
-                    inputs.home-manager.nixosModules.home-manager
-                ];
+                modules =
+                    [
+                        {
+                            system.stateVersion = "25.05";
+                            nixpkgs.overlays = [
+                                inputs.self.overlays.default
+                            ];
+                            networking.hostName = hostname;
+                        }
+                        ./modules/hosts/${hostname}
+                        inputs.home-manager.nixosModules.home-manager
+                    ]
+                    ++ (builtins.map (user: ./modules/users/${user}) users);
             };
     in {
         # `nix fmt`
@@ -53,7 +55,7 @@
             };
         # `nixos-rebuild --flake .#<hostname>`
         nixosConfigurations = {
-            laptop = mkSystem "x86_64-linux" "laptop";
+            laptop = mkSystem "x86_64-linux" "laptop" ["truong"];
         };
     };
 }

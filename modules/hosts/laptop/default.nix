@@ -11,6 +11,5 @@
         ./locales.nix
         ./graphics.nix
         ./misc.nix
-        ../../users/truong
     ];
 }
