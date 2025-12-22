@@ -22,12 +22,12 @@
                 show_always = true;
             };
             hostname = {
-                format = "[$hostname\\]]($style)";
+                format = "[$hostname\\]]($style) ";
                 style = "bright-green";
                 ssh_only = false;
             };
             directory = {
-                format = " [\\[$path\\]]($style)[$read_only]($read_only_style) ";
+                format = "[\\[$path\\]]($style)[$read_only]($read_only_style) ";
                 style = "cyan";
                 read_only_style = "red";
                 read_only = "[readonly]";
@@ -38,7 +38,7 @@
                 style = "purple";
             };
             git_status = {
-                format = "[\\[$all_status$ahead_behind\\]]($style)";
+                format = "[\\[$all_status$ahead_behind\\]]($style) ";
                 style = "bright-blue";
                 conflicted = "=";
                 ahead = ">";
@@ -54,7 +54,7 @@
                 typechanged = "%";
             };
             cmd_duration = {
-                format = " [\\[$duration\\]]($style) ";
+                format = "[\\[$duration\\]]($style)";
                 style = "yellow";
             };
             shell = {
