@@ -1,7 +1,10 @@
-{...}: {
+{pkgs, ...}: {
     programs = {
         steam = {
             enable = true;
+            extraPackages = with pkgs; [
+                gamemode
+            ];
             localNetworkGameTransfers.openFirewall = true;
             remotePlay.openFirewall = true;
         };
