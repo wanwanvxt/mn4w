@@ -2,7 +2,7 @@
     imports = [
         ./cursor.nix
         ./fontconfig.nix
-        ./qt
+        ./qt.nix
         ./gtk.nix
         ./matugen
     ];
