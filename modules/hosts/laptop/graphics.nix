@@ -1,10 +1,16 @@
 {...}: {
-    services.xserver.videoDrivers = ["nvidia"];
+    services.xserver.videoDrivers = [
+        "amdgpu"
+        "nvidia"
+    ];
     hardware.nvidia = {
         open = true;
         modesetting.enable = true;
         prime = {
-            sync.enable = true;
+            offload = {
+                enable = true;
+                enableOffloadCmd = true;
+            };
             amdgpuBusId = "PCI:5:0:0";
             nvidiaBusId = "PCI:1:0:0";
         };
