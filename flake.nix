@@ -27,10 +27,25 @@
                 modules =
                     [
                         {
+                            nixpkgs = {
+                                config.allowUnfree = true;
+                                overlays = [
+                                    inputs.self.overlays.default
+                                ];
+                            };
+
+                            nix = {
+                                enable = true;
+                                settings = {
+                                    allowed-users = ["*"];
+                                    auto-optimise-store = true;
+                                    experimental-features = ["nix-command" "flakes"];
+                                    keep-outputs = true;
+                                    keep-derivations = true;
+                                };
+                            };
+
                             system.stateVersion = "25.05";
-                            nixpkgs.overlays = [
-                                inputs.self.overlays.default
-                            ];
                             networking.hostName = hostname;
                         }
                         ./modules/hosts/${hostname}
