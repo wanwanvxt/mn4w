@@ -89,7 +89,8 @@ Each user module may:
 # flake.nix
 
 nixosConfigurations = {
-    mypc = mkSystem "x86_64-linux" "mypc" [ "katou" "alice" "bob" ];
+    mypc = mkSystem   "x86_64-linux"   "25.05"          "mypc"      [ "katou" "alice" "bob" ];
+                      #system          #state_version   #hostname   #all_users
 
     # More hosts...
 };
