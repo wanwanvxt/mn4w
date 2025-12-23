@@ -2,7 +2,7 @@
     imports = [
         ../../shared/boot.nix
         ../../shared/zram.nix
-        ../../shared/nix.nix
+        ../../shared/gc.nix
         ../../shared/networking.nix
         ../../shared/audio.nix
         ../../shared/bluetooth.nix
