@@ -1,6 +1,7 @@
 {...}: {
     imports = [
         ../../shared/boot.nix
+        ../../shared/zram.nix
         ../../shared/nix.nix
         ../../shared/networking.nix
         ../../shared/audio.nix
