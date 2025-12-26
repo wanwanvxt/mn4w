@@ -7,6 +7,7 @@
                 "$username"
                 "[@](bright-green)"
                 "$hostname"
+                "[:](white)"
                 "$directory"
                 "$git_branch"
                 "$git_status"
@@ -17,17 +18,17 @@
                 "$character"
             ];
             username = {
-                format = "[\\[$user]($style)";
+                format = "[$user]($style)";
                 style_user = "bright-green";
                 show_always = true;
             };
             hostname = {
-                format = "[$hostname\\]]($style) ";
+                format = "[$hostname]($style)";
                 style = "bright-green";
                 ssh_only = false;
             };
             directory = {
-                format = "[\\[$path\\]]($style)[$read_only]($read_only_style) ";
+                format = "[$path]($style)[$read_only]($read_only_style) ";
                 style = "cyan";
                 read_only_style = "red";
                 read_only = "[readonly]";
