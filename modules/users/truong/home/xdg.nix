@@ -6,8 +6,12 @@
             extraPortals = with pkgs; [
                 xdg-desktop-portal-hyprland
                 xdg-desktop-portal-gtk
+                kdePackages.xdg-desktop-portal-kde
             ];
-            config.common.default = ["hyprland" "gtk"];
+            config.common = {
+                default = ["hyprland" "gtk"];
+                "org.freedesktop.impl.portal.FileChooser" = "kde";
+            };
         };
         userDirs = {
             enable = true;

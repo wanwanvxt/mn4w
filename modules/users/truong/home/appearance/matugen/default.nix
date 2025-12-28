@@ -15,7 +15,7 @@ in {
     xdg.configFile."matugen/config.toml".text = std.serde.toTOML {
         config = {
             version_check = false;
-            fallback_color = "#9ece6a";
+            fallback_color = "#00ff99";
             caching = true;
         };
         templates = {
@@ -23,9 +23,9 @@ in {
                 input_path = "${config.xdg.configHome}/matugen/templates/hyprland.conf";
                 output_path = "${config.xdg.configHome}/hypr/hyprland/colors.conf";
             };
-            qtct = {
-                input_path = "${config.xdg.configHome}/matugen/templates/qtct.conf";
-                output_path = "${config.xdg.configHome}/qt6ct/colors/qtct.conf";
+            colorScheme = {
+                input_path = "${config.xdg.configHome}/matugen/templates/Matugen.colors";
+                output_path = "${config.xdg.dataHome}/color-schemes/Matugen.colors";
             };
         };
     };
