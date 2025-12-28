@@ -36,7 +36,7 @@ in {
         extraConfig = ''
             $hypr_config_dir = ${config.xdg.configHome}/hypr
             source = $hypr_config_dir/hyprland/colors.conf
-            ${builtins.concatStringsSep "\n" (builtins.map (f: "source = $hypr_config_dir/hyprland/${f}.conf") cfgs)}
+            ${builtins.concatStringsSep "\n" (map (f: "source = $hypr_config_dir/hyprland/${f}.conf") cfgs)}
             source = $hypr_config_dir/hyprland/custom.conf
         '';
     };
@@ -47,14 +47,14 @@ in {
     };
 
     xdg.configFile =
-        (builtins.listToAttrs (builtins.map (f: {
+        (builtins.listToAttrs (map (f: {
             name = "hypr/hyprland/${f}.conf";
             value = {
                 source = ./config/${f}.conf;
             };
         })
         cfgs))
-        // (builtins.listToAttrs (builtins.map (f: {
+        // (builtins.listToAttrs (map (f: {
             name = "hypr/hyprland/scripts/${f}";
             value = {
                 source = ./scripts/${f};

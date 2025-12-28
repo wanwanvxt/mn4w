@@ -51,7 +51,7 @@
                         ./modules/hosts/${hostname}
                         inputs.home-manager.nixosModules.home-manager
                     ]
-                    ++ (builtins.map (user: ./modules/users/${user}) users);
+                    ++ (map (user: ./modules/users/${user}) users);
             };
     in {
         # `nix fmt`
