@@ -1,7 +1,6 @@
 {
     config,
     pkgs,
-    lib,
     inputs,
     ...
 }: let
@@ -19,19 +18,15 @@ in {
             fallback_color = "#9ece6a";
             caching = true;
         };
-        templates =
-            {}
-            // (lib.optionalAttrs config.wayland.windowManager.hyprland.enable {
-                hyprland = {
-                    input_path = "${config.xdg.configHome}/matugen/templates/hyprland.conf";
-                    output_path = "${config.xdg.configHome}/hypr/hyprland/colors.conf";
-                };
-            })
-            // (lib.optionalAttrs (config.qt.enable && config.qt.platformTheme.name == "qtct") {
-                qtct = {
-                    input_path = "${config.xdg.configHome}/matugen/templates/qtct.conf";
-                    output_path = "${config.xdg.configHome}/qt6ct/colors/qtct.conf";
-                };
-            });
+        templates = {
+            hyprland = {
+                input_path = "${config.xdg.configHome}/matugen/templates/hyprland.conf";
+                output_path = "${config.xdg.configHome}/hypr/hyprland/colors.conf";
+            };
+            qtct = {
+                input_path = "${config.xdg.configHome}/matugen/templates/qtct.conf";
+                output_path = "${config.xdg.configHome}/qt6ct/colors/qtct.conf";
+            };
+        };
     };
 }
