@@ -3,18 +3,8 @@
     pkgs,
     ...
 }: let
-    cfgs = [
-        "general"
-        "env"
-        "bindings"
-        "autostart"
-        "rules"
-    ];
-    scripts = [
-        "boost.fish"
-        "screenshot.fish"
-        "wallpaper.fish"
-    ];
+    cfgs = builtins.attrNames (builtins.readDir ./configs);
+    scripts = builtins.attrNames (builtins.readDir ./scripts);
 in {
     home.packages = with pkgs; [
         brightnessctl
@@ -40,21 +30,26 @@ in {
         extraConfig = ''
             $hypr_config_dir = ${config.xdg.configHome}/hypr
             source = $hypr_config_dir/hyprland/colors.conf
-            ${builtins.concatStringsSep "\n" (map (f: "source = $hypr_config_dir/hyprland/${f}.conf") cfgs)}
+            ${builtins.concatStringsSep "\n" (map (f: "source = $hypr_config_dir/hyprland/${f}") cfgs)}
             source = $hypr_config_dir/hyprland/custom.conf
         '';
     };
 
     writable.xdgConfigFile = {
-        "hypr/hyprland/colors.conf".source = ./config/colors.conf;
+        "hypr/hyprland/colors.conf".text = builtins.concatStringsSep "\n" [
+            "$hypr_col_outline_active = rgb(00ff99)"
+            "$hypr_col_outline_inactive = rgb(808080)"
+            "$hypr_col_shadow = rgb(000000)"
+            "$hypr_col_background = rgb(000000)"
+        ];
         "hypr/hyprland/custom.conf".text = "# write custom config here";
     };
 
     xdg.configFile =
         (builtins.listToAttrs (map (f: {
-            name = "hypr/hyprland/${f}.conf";
+            name = "hypr/hyprland/${f}";
             value = {
-                source = ./config/${f}.conf;
+                source = ./configs/${f};
             };
         })
         cfgs))
