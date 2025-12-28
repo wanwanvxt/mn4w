@@ -27,8 +27,8 @@
             icon_theme = "Papirus-Dark";
         };
         Fonts = {
-            general = "\"Noto Sans,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,Regular\"";
-            fixed = "\"Noto Sans,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,Regular\"";
+            general = "\"sans serif,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,Regular\"";
+            fixed = "\"sans serif,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,Regular\"";
         };
     };
     writable.xdgConfigFile."qt6ct/colors/qtct.conf".source = "${pkgs.kdePackages.qt6ct}/share/qt6ct/colors/darker.conf";

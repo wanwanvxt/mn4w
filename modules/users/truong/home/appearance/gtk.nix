@@ -12,7 +12,7 @@
         };
         font = {
             package = pkgs.noto-fonts;
-            name = "Noto Sans";
+            name = "sans serif";
             size = 10;
         };
     };
