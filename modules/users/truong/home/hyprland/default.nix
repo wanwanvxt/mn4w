@@ -33,6 +33,10 @@ in {
     wayland.windowManager.hyprland = {
         enable = true;
         xwayland.enable = true;
+        systemd = {
+            enable = true;
+            variables = ["--all"];
+        };
         extraConfig = ''
             $hypr_config_dir = ${config.xdg.configHome}/hypr
             source = $hypr_config_dir/hyprland/colors.conf
