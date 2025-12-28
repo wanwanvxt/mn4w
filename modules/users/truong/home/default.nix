@@ -1,17 +1,13 @@
-{
-    osConfig,
-    pkgs,
-    ...
-}: {
+{osConfig, ...}: {
     home.stateVersion = osConfig.system.stateVersion;
 
     imports = [
-        ./general
-        ./terminal
+        ./shells
         ./vcs
-        ./files
-        ./editors
-        ./tools
-        ./others
+        ./xdg.nix
+        ./hyprland
+        ./appearance
+        ./ime.nix
+        ./apps
     ];
 }

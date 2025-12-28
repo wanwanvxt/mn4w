@@ -1,8 +1,4 @@
 {pkgs, ...}: {
-    imports = [
-        ./vesktop.nix
-    ];
-
     programs = {
         firefox.enable = true;
         pqiv.enable = true;
