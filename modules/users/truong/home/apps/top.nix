@@ -72,4 +72,6 @@
             log_level = "WARNING";
         };
     };
+
+    wayland.windowManager.hyprland.settings."$hypr_app_monitor" = "$hypr_app_terminal btop & $hypr_app_terminal nvtop";
 }

@@ -9,6 +9,9 @@
         # files
         ./dolphin.nix
 
+        # browsers
+        ./firefox.nix
+
         # others
         ./top.nix
         ./vesktop.nix

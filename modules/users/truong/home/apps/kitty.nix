@@ -15,6 +15,8 @@
         };
     };
 
+    wayland.windowManager.hyprland.settings."$hypr_app_terminal" = "kitty";
+
     xdg.terminal-exec = {
         enable = true;
         settings = {

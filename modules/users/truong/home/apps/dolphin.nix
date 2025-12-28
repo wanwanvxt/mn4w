@@ -10,4 +10,6 @@
         kdePackages.ark
         unrar
     ];
+
+    wayland.windowManager.hyprland.settings."$hypr_app_file" = "dolphin";
 }
