@@ -1,6 +1,7 @@
 {...}: {
     services = {
         udisks2.enable = true;
+        gvfs.enable = true;
         gnome.gnome-keyring.enable = true;
     };
 
