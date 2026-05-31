@@ -7,7 +7,7 @@ local plugins = {
 }
 
 for _, plg in ipairs(plugins) do
-    local ok, res = pcall(require, "plugins." .. plg)
+    local ok, res = pcall(require, "my.cfgs." .. plg)
     if not ok then
         local msg = string.format("Plugin '%s' could not be loaded!\nError: %s", plg, res)
         vim.notify(msg, vim.log.levels.ERROR, { title = "nvim-config" })

@@ -39,7 +39,7 @@ utils.lazy({
             end
         })
 
-        local servers = require("plugins.lsp.servers")
+        local servers = require("my.cfgs.lsp.servers")
         for name, cfg in pairs(servers) do
             local cmd = cfg.cmd[1]
             if utils.is_executable(cmd) then

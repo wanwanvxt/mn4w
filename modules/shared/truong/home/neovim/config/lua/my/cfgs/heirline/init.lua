@@ -34,8 +34,8 @@ utils.lazy({
         end
 
         require("heirline").setup({
-            statusline = require("plugins.heirline.statusline"),
-            tabline = require("plugins.heirline.tabline"),
+            statusline = require("my.cfgs.heirline.statusline"),
+            tabline = require("my.cfgs.heirline.tabline"),
             opts = {
                 colors = colors,
             }

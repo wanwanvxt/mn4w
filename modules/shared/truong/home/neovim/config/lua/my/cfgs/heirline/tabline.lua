@@ -1,7 +1,7 @@
 local utils = require("my.utils")
 local hl_utils = require("heirline.utils")
 local hl_conds = require("heirline.conditions")
-local shared = require("plugins.heirline.shared")
+local shared = require("my.cfgs.heirline.shared")
 
 local Bufnr = {
     provider = function(self)
