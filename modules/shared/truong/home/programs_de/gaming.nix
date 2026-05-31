@@ -90,8 +90,8 @@ in
                 exec "$@"
             fi
 
-            exec systemd-inhibit --why 'Performance mode' \
-                powerprofilesctl launch -p performance -r 'Performance mode' \
+            exec systemd-inhibit --who="$*" --why='Performance mode' \
+                powerprofilesctl launch -p performance -i "$*" -r 'Performance mode' \
                 -- "$@"
         ''))
 
