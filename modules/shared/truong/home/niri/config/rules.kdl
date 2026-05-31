@@ -10,12 +10,6 @@ window-rule {
 
 // floating
 window-rule {
-    match app-id="(?i)^thunar$"
-    exclude title="^.* - Thunar$"
-
-    open-floating true
-}
-window-rule {
     match app-id="^xdg-desktop-portal-gtk$"
     match app-id="^firefox$" title="^Library$"
     match app-id="^steam$" title="^(Steam Settings)|(Add Non-Steam Game)$"
@@ -25,7 +19,7 @@ window-rule {
     default-window-height { fixed 800; }
 }
 window-rule {
-    match app-id="^xarchiver$" title="^Extract files$"
+    match app-id="^nemo$" title="^.*Properties$"
     match app-id="^firefox$" title="^About Mozilla Firefox$"
     match app-id="^steam$" title="^System Information$"
 
