@@ -85,6 +85,8 @@ in
     '';
 
     home.packages = with pkgs; [
+        protonplus
+
         (lib.mkIf powerprofilesCfg.enable (writeShellScriptBin "performance-run" ''
             if ! powerprofilesctl list | grep -q 'performance:'; then
                 exec "$@"
