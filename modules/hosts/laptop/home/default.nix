@@ -14,7 +14,7 @@
             ../../../shared/truong/home/fonts.nix
             ../../../shared/truong/home/gtk_qt.nix
             ../../../shared/truong/home/ime.nix
-            ../../../shared/truong/home/programs_de
+            ../../../shared/truong/home/program_guis
             ./niri.nix
         ];
     };
