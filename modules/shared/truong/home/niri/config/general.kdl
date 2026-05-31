@@ -1,0 +1,156 @@
+input {
+    keyboard {
+        xkb {
+            layout "us"
+        }
+        repeat-delay 250
+        repeat-rate  25
+        track-layout "global"
+        numlock
+    }
+
+    touchpad {
+        tap
+        dwt
+        natural-scroll
+        accel-speed   0.5
+        accel-profile "adaptive"
+        scroll-factor 1.5
+        scroll-method "two-finger"
+    }
+
+    mouse {
+        accel-profile "flat"
+        scroll-factor 1.0
+        scroll-method "no-scroll"
+    }
+
+    warp-mouse-to-focus mode="center-xy"
+    focus-follows-mouse max-scroll-amount="10%"
+
+    mod-key        "Super"
+    mod-key-nested "Alt"
+}
+
+gestures {
+    dnd-edge-view-scroll {
+        trigger-width 50
+        delay-ms      100
+        max-speed     3000
+    }
+    dnd-edge-workspace-switch {
+        trigger-height 50
+        delay-ms       50
+        max-speed      3000
+    }
+
+    hot-corners { top-left; }
+}
+
+layout {
+    gaps 10
+    struts {
+        top 0
+        bottom 0
+        left 0
+        right 0
+    }
+
+    center-focused-column "on-overflow"
+    always-center-single-column
+    default-column-display "tabbed"
+
+    default-column-width { proportion 0.6667; }
+    preset-column-widths {
+        proportion 0.3333
+        proportion 0.5
+        proportion 0.6667
+        fixed      1280
+    }
+    preset-window-heights {
+        proportion 0.3333
+        proportion 0.5
+        proportion 0.6667
+        fixed      720
+    }
+
+    focus-ring { off; }
+    border {
+        on
+        width          2
+        active-color   "#00ff99"
+        inactive-color "#808080"
+        urgent-color   "#ff9900"
+    }
+    shadow {
+        on
+        softness 10
+        spread   2
+        offset   x=0 y=0
+        color    "#222222"
+        draw-behind-window false
+    }
+    tab-indicator {
+        hide-when-single-tab
+        place-within-column
+        gap   2
+        width 4
+        gaps-between-tabs 2
+        corner-radius 999
+        position "left"
+        length total-proportion=0.125
+        active-color   "#00ff99"
+        inactive-color "#808080"
+        urgent-color   "#ff9900"
+    }
+    insert-hint { color "#00ff99aa"; }
+    background-color "transparent"
+}
+
+blur {
+    passes     3
+    offset     3
+    noise      0.1
+    saturation 1.5
+}
+
+animations {
+    // using default
+}
+
+recent-windows {
+    debounce-ms   150
+    open-delay-ms 150
+
+    highlight {
+        active-color  "#00ff99"
+        urgent-color  "#ff9900"
+        padding       20
+        corner-radius 5
+    }
+
+    previews {
+        max-height 720
+        max-scale  0.5
+    }
+}
+
+overview {
+    zoom           0.75
+    backdrop-color "#262626"
+    workspace-shadow {
+        softness 10
+        spread   5
+        offset   x=0 y=0
+        color    "#222222"
+    }
+}
+
+// misc
+prefer-no-csd
+cursor {
+    hide-when-typing
+    hide-after-inactive-ms 10000
+}
+xwayland-satellite { path "xwayland-satellite"; }
+hotkey-overlay { skip-at-startup; }

@@ -1,0 +1,18 @@
+{
+    "runtime": {
+        "version": "LuaJIT"
+    },
+    "workspace": {
+        "checkThirdParty": false,
+        "library": [
+            "$VIMRUNTIME/lua",
+            "$XDG_DATA_HOME/nvim/site/pack/core/opt"
+        ]
+    },
+    "diagnostics": {
+        "globals": [ "vim" ]
+    },
+    "telemetry": {
+        "enable": false
+    }
+}
