@@ -22,6 +22,7 @@ in
                 amd = true;
                 nvidia = nvidiaCfg.enabled;
             }))
+            gdu
         ];
 
         variables = {
@@ -34,6 +35,7 @@ in
         pathsToLink = [
             "/share/applications" "/share/xdg-desktop-portal" # need for `xdg-desktop-portal`
             "/share/fish" # need for `fish`
+            "/share/color-schemes"
         ];
     };
 
