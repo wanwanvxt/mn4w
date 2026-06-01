@@ -92,7 +92,7 @@ local FilePath = {
             end
         end
 
-        if not hl_conds.width_percent_below(#head+#tail, 0.25) then
+        if not hl_conds.width_percent_below(#head+#tail, 0.4) then
             return head .. vim.fn.pathshorten(tail)
         end
 
