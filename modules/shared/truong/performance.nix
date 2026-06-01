@@ -1,3 +1,7 @@
+{ pkgs, config, lib, ... }:
+let
+    powerprofilesCfg = config.services.power-profiles-daemon;
+in
 {
     zramSwap = {
         enable = true;
@@ -9,5 +13,14 @@
 
     services.power-profiles-daemon.enable = true;
     environment.systemPackages = [
+        (lib.mkIf powerprofilesCfg.enable (pkgs.writeShellScriptBin "performance-run" ''
+            if ! powerprofilesctl list | grep -q 'performance:'; then
+                exec "$@"
+            fi
+
+            exec systemd-inhibit --who="$*" --why='Performance mode' \
+                powerprofilesctl launch -p performance -i "$*" -r 'Performance mode' \
+                -- "$@"
+        ''))
     ];
 }
