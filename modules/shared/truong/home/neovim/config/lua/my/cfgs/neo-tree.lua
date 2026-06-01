@@ -22,6 +22,7 @@ utils.lazy({
                     { "current_filter" },
                     { "icon" },
                     { "name" },
+                    { "clipboard" },
                 },
                 file = {
                     { "indent" },
