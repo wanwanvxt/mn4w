@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 let
     fileRollerDesktopPath = "${pkgs.file-roller}/share/applications/org.gnome.FileRoller.desktop";
-    helpers = import ../helpers.nix lib;
+    helpers = import ../../helpers.nix lib;
 in
 {
     home.packages = with pkgs; [

@@ -2,7 +2,7 @@
 let
     mpvCfg = config.programs.mpv;
     desktopPath = "${mpvCfg.package}/share/applications/mpv.desktop";
-    helpers = import ../helpers.nix lib;
+    helpers = import ../../helpers.nix lib;
 in
 {
     programs.mpv = {

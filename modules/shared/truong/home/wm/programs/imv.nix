@@ -2,7 +2,7 @@
 let
     imvCfg = config.programs.imv;
     imvDesktopPath = "${imvCfg.package}/share/applications/imv.desktop";
-    helpers = import ../helpers.nix lib;
+    helpers = import ../../helpers.nix lib;
 in
 {
     programs.imv = {

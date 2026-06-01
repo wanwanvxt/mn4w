@@ -5,7 +5,7 @@ let
         "application/x-shellscript"
         "application/x-sh"
     ];
-    helpers = import ../helpers.nix lib;
+    helpers = import ../../helpers.nix lib;
 in
 {
     programs.kitty = {

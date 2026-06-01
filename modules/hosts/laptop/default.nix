@@ -1,17 +1,6 @@
 {
     imports = [
-        ../../shared/truong/nix.nix
-        ../../shared/truong/boot.nix
-        ../../shared/truong/locale.nix
-        ../../shared/truong/networking.nix
-        ../../shared/truong/bluetooth.nix
-        ../../shared/truong/audio.nix
-        ../../shared/truong/graphics.nix
-        ../../shared/truong/performance.nix
-        ../../shared/truong/disk.nix
-        ../../shared/truong/users.nix
-        ../../shared/truong/programs.nix
-        ../../shared/truong/gaming.nix
+        ../../shared/truong
         ./hardware-config.nix
         ./graphics.nix
         ./home
