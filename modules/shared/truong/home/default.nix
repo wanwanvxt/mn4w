@@ -8,10 +8,11 @@
         ./programs.nix
 
         ./wm/niri
-        ./wm/pointerCursor.nix
+        ./wm/cursor.nix
         ./wm/fonts.nix
         ./wm/gtk_qt.nix
         ./wm/ime.nix
+        ./wm/chameleon
         ./wm/programs
     ];
 }
