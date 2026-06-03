@@ -9,7 +9,7 @@ in
         enable = true;
         extraWrapperArgs = [
             # `romus204/tree-sitter-manager.nvim` plugin requires these
-            "--suffix" "PATH" ":" (lib.makeBinPath [ pkgs.tree-sitter pkgs.stdenv.cc ])
+            "--suffix" "PATH" ":" (lib.makeBinPath (with pkgs; [ tree-sitter stdenv.cc ]))
         ];
 
         defaultEditor = true;
