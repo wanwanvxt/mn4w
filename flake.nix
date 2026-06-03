@@ -35,12 +35,11 @@
             ) hosts;
 
             myPkgs = import ./pkgs;
-            myOverlays = myPkgs // {
+            overlays = myPkgs // {
                 default = nixpkgs.lib.composeManyExtensions (builtins.attrValues myPkgs);
             };
         in
         {
-            inherit nixosConfigurations;
-            overlays = myOverlays;
+            inherit nixosConfigurations overlays;
         };
 }
