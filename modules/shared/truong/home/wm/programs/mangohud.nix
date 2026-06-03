@@ -14,6 +14,7 @@
             preset = [ 1 2 3 ];
         };
     };
+
     xdg.configFile."MangoHud/presets.conf".text = ''
         [preset 1]
         hud_no_margin

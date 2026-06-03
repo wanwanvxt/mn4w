@@ -5,7 +5,7 @@
         ./firefox.nix
         ./imv.nix
         ./mpv.nix
-        ./gaming.nix
+        ./mangohud.nix
     ];
 
     home.packages = with pkgs; [
