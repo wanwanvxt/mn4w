@@ -3,5 +3,5 @@
 if command -v uwsm >/dev/null 2>&1 && uwsm check is-active; then
     exec uwsm app -- "$@"
 else
-    exec niri msg action spawn -- "$@"
+    exec "$@"
 fi
