@@ -10,6 +10,7 @@
 
         users.truong = { osConfig, ... }: {
             home.stateVersion = osConfig.system.stateVersion;
+            imports = [ ./home ];
         };
     };
 

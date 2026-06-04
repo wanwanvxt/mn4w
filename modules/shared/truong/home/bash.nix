@@ -2,6 +2,7 @@
 let
     bashCfg = config.programs.bash;
     fishCfg = config.programs.fish;
+    niriCfg = config.programs.niri or { enable = false; };
 in
 {
     home.shell = {
@@ -13,6 +14,14 @@ in
         bash = {
             enable = true;
             enableCompletion = true;
+
+            profileExtra = ''
+                ${lib.optionalString niriCfg.enable ''
+                    if [[ -z "$DISPLAY" ]] && [[ "$(tty)" = "/dev/tty1" ]]; then
+                        exec start-niri
+                    fi
+                ''}
+            '';
         };
 
         fish = {
