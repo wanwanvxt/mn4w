@@ -1,14 +1,14 @@
-{ pkgs, lib, ... }: {
+{ pkgs, ... }: {
     programs.uwsm.enable = true;
 
+    environment.systemPackages = [ pkgs.tuigreet ];
     services.greetd = {
         enable = true;
         settings = {
             default_session = {
                 command = ''
-                    ${lib.getExe pkgs.tuigreet} \
-                    --time --remember --remember-session --asterisks \
-                    --cmd "uwsm select && uwsm start default"
+                    tuigreet --time --remember --remember-session --asterisks \
+                    --cmd 'uwsm start select'
                 '';
                 user = "greeter";
             };
