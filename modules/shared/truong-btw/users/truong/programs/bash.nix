@@ -2,7 +2,6 @@
 let
     bashCfg = config.programs.bash;
     fishCfg = config.programs.fish;
-    niriCfg = config.programs.niri or { enable = false; };
 in
 {
     home.shell = {
