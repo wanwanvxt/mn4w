@@ -17,13 +17,13 @@ in
                 xwayland-satellite
 
                 (writeScriptBin "start-niri" ''
-                    if [ -z "$DISPLAY" ] && \
-                        ! pgrep -u "$USER" -x niri >/dev/null 2>&1 && \
-                        ${if uwsmCfg.enable then "! uwsm check may-start" else "true"}
+                    if [ -z "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ] &&
+                        ! pgrep -u "$USER" -x niri >/dev/null 2>&1 &&
+                        ${if uwsmCfg.enable then "uwsm check may-start" else "true"}
                     then
                         exec ${lib.optionalString uwsmCfg.enable "uwsm start --"} niri --session
                     else
-                        echo "Falied to start Niri session!"
+                        echo "Failed to start Niri session!"
                         sleep 5
                     fi
                 '')

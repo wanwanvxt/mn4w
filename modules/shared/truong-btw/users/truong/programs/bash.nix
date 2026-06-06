@@ -17,9 +17,7 @@ in
 
             profileExtra = ''
                 ${lib.optionalString niriCfg.enable ''
-                    if [[ -z "$DISPLAY" ]] && [[ "$(tty)" = "/dev/tty1" ]]; then
-                        exec start-niri
-                    fi
+                    [[ "$(tty)" = "/dev/tty1" ]] && exec start-niri
                 ''}
             '';
         };
