@@ -4,18 +4,22 @@ let
 in
 {
     systemd.user.services.steam-shader-cfg = lib.mkIf steamCfg.enable {
-        description = "Configure Steam shader preprocessing threads";
-        wantedBy = [ "default.target" ];
-
-        serviceConfig = {
-            Type = "oneshot";
-            RemainAfterExit = true;
+        Unit = {
+            Description = "Configure Steam shader preprocessing threads";
         };
 
-        script = ''
-            THREADS=$(${pkgs.coreutils}/bin/nproc)
-            mkdir -p ~/.local/share/Steam
-            echo "unShaderBackgroundProcessingThreads $THREADS" > ~/.local/share/Steam/steam_dev.cfg
-      '';
+        Install = {
+            WantedBy = [ "default.target" ];
+        };
+
+        Service = {
+            Type = "oneshot";
+            RemainAfterExit = true;
+            ExecStart = "${pkgs.writers.writeDash "steam-shader-cfg-script" ''
+                THREADS=$(${pkgs.coreutils}/bin/nproc)
+                mkdir -p ~/.steam/steam
+                echo "unShaderBackgroundProcessingThreads $THREADS" > ~/.steam/steam/steam_dev.cfg
+            ''}";
+        };
     };
 }
