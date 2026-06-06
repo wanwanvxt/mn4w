@@ -9,6 +9,7 @@
         ./graphics.nix
         ./performance.nix
         ./disk.nix
+        ./greet.nix
         ./programs.nix
         ./gaming.nix
         ./users

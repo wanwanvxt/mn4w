@@ -44,7 +44,6 @@ in
         less.enable = lib.mkForce false;
         nano.enable = false;
         dconf.enable = true;
-        uwsm.enable = true;
     };
 
     services.gnome.gnome-keyring.enable = true;
