@@ -33,9 +33,10 @@ in
         };
 
         pathsToLink = [
-            "/share/applications" "/share/xdg-desktop-portal" # need for `xdg-desktop-portal`
-            "/share/fish" # need for `fish`
+            "/share/applications"
+            "/share/xdg-desktop-portal"
             "/share/color-schemes"
+            "/share/fish"
         ];
     };
 
