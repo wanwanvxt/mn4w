@@ -17,6 +17,7 @@
         ./firefox.nix
         ./imv.nix
         ./mpv.nix
+        ./steam.nix
         ./mangohud.nix
     ];
 }
