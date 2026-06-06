@@ -5,7 +5,7 @@ let
         "application/x-shellscript"
         "application/x-sh"
     ];
-    helpers = import ../../helpers.nix lib;
+    helpers = import ./helpers.nix lib;
 in
 {
     programs.kitty = {
@@ -31,9 +31,6 @@ in
         settings.default = [ "kitty.desktop" ];
     };
     dconf.settings."org/cinnamon/desktop/applications/terminal".exec = "kitty";
-
     home.sessionVariables.TERMINAL = "kitty";
-    systemd.user.sessionVariables.TERMINAL = "kitty";
-
     xdg.mimeApps.defaultApplications = helpers.assignMime kittyMimes [ "kitty.desktop" ];
 }

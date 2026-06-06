@@ -9,8 +9,8 @@
         ./graphics.nix
         ./performance.nix
         ./disk.nix
-        ./users.nix
         ./programs.nix
         ./gaming.nix
+        ./users
     ];
 }

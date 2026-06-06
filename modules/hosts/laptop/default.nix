@@ -1,6 +1,6 @@
 {
     imports = [
-        ../../shared/truong
+        ../../shared/truong-btw
         ./hardware-config.nix
         ./graphics.nix
     ];
