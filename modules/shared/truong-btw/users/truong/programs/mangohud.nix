@@ -1,7 +1,7 @@
 {
     programs.mangohud = {
         enable = true;
-        enableSessionWide = true;
+
         settings = {
             legacy_layout = 0;
             position = "top-left";
