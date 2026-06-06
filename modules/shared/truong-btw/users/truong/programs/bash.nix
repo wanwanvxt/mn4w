@@ -14,12 +14,6 @@ in
         bash = {
             enable = true;
             enableCompletion = true;
-
-            profileExtra = ''
-                ${lib.optionalString niriCfg.enable ''
-                    [[ "$(tty)" = "/dev/tty1" ]] && exec start-niri
-                ''}
-            '';
         };
 
         fish = {
