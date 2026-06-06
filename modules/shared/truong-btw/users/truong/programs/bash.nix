@@ -42,7 +42,7 @@ in
             enable = true;
             settings = {
                 format = lib.strings.concatStringsSep "\n" [
-                    "$username@$hostname:$directory $nix_shell$git_branch$git_status"
+                    "$username@$hostname:$directory ($direnv )$git_branch($git_status)"
                     "$shell $status$character "
                 ];
                 add_newline = false;
@@ -53,45 +53,42 @@ in
                     show_always = true;
                 };
                 hostname = {
-                    format = "[$hostname]($style)";
-                    style = "green";
+                    format = "$hostname";
                     ssh_only = false;
                 };
                 directory = {
                     format = "[$path]($style)[$read_only]($read_only_style)";
                     read_only = "[RO]";
-                    style = "blue";
+                    style = "cyan";
                     read_only_style = "red";
                     truncate_to_repo = false;
                 };
 
-                nix_shell = {
-                    format = "[\\[$state( $name)\\]]($style) ";
+                direnv = {
+                    disabled = false;
+                    format = "[\\[$symbol$loaded/$allowed\\]]($style)";
                     style = "purple";
-                    impure_msg = "impure";
-                    pure_msg = "pure";
-                    unknown_msg = "unknown";
                 };
 
                 git_branch = {
                     format = "[\\[$branch\\]]($style)";
-                    style = "yellow";
+                    style = "blue";
                 };
                 git_status = {
-                    format = "([\\[$all_status$ahead_behind\\]]($style))";
-                    style = "cyan";
+                    format = "[\\[$all_status$ahead_behind\\]]($style)";
+                    style = "yellow";
                     conflicted = "=";
                     ahead = ">";
                     behind = "<";
                     diverged = "/";
                     up_to_date = "";
                     untracked = "?";
-                    stashed = "$";
+                    stashed = "\$";
                     modified = "!";
                     staged = "+";
                     renamed = "~";
                     deleted = "x";
-                    typechanged = "%";
+                    typechanged = "";
                 };
 
                 shell = {
@@ -105,12 +102,11 @@ in
                 };
                 character = {
                     format = "$symbol";
-                    success_symbol = "[~>](green)";
+                    success_symbol = "~>";
                     error_symbol = "[>](red)";
                 };
             };
         };
-
 
         direnv = {
             enable = true;
