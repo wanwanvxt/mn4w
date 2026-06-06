@@ -15,7 +15,7 @@ in
         Service = {
             Type = "oneshot";
             RemainAfterExit = true;
-            ExecStart = "${pkgs.writers.writeDash "steam-shader-cfg-script" ''
+            ExecStart = "${pkgs.writeShellScript "steam-shader-cfg-script" ''
                 THREADS=$(${pkgs.coreutils}/bin/nproc)
                 mkdir -p ~/.steam/steam
                 echo "unShaderBackgroundProcessingThreads $THREADS" > ~/.steam/steam/steam_dev.cfg
