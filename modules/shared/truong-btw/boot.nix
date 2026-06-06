@@ -1,9 +1,12 @@
 { pkgs, ... }: {
     boot = {
         loader = {
-            systemd-boot = {
+            grub = {
                 enable = true;
-                editor = false;
+                device = "nodev";
+                efiSupport = true;
+                useOSProber = true;
+                configurationLimit = 20;
             };
             efi.canTouchEfiVariables = true;
         };
