@@ -8,7 +8,7 @@
             default_session = {
                 command = ''
                     tuigreet --time --remember --remember-session --asterisks \
-                    --cmd 'uwsm start select'
+                    --cmd 'uwsm start default'
                 '';
                 user = "greeter";
             };
