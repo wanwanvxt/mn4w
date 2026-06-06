@@ -9,7 +9,7 @@ in
     kdePackages = prev.kdePackages.overrideScope (kdeFinal: kdePrev: {
         qt6ct = kdePrev.qt6ct.overrideAttrs (oldAttrs: {
             patches = (oldAttrs.patches or []) ++ [ qt6ctPatch ];
-            buiildInputs = (oldAttrs.buildInputs or []) ++ (with kdeFinal; [
+            buildInputs = (oldAttrs.buildInputs or []) ++ (with kdeFinal; [
                 qtdeclarative kconfig kcolorscheme kiconthemes
             ]);
         });
@@ -17,7 +17,7 @@ in
     qt6Packages = prev.qt6Packages.overrideScope (qt6Final: qt6Prev: {
         qt6ct = qt6Prev.qt6ct.overrideAttrs (oldAttrs: {
             patches = (oldAttrs.patches or []) ++ [ qt6ctPatch ];
-            buiildInputs = (oldAttrs.buildInputs or []) ++ (with qt6Final; with final.kdePackages; [
+            buildInputs = (oldAttrs.buildInputs or []) ++ (with qt6Final; with final.kdePackages; [
                 qtdeclarative kconfig kcolorscheme kiconthemes
             ]);
         });
