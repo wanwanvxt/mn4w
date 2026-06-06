@@ -16,6 +16,7 @@ in
     ];
 
     home.sessionVariables.FILE_MANAGER = "nemo";
+    systemd.user.sessionVariables.FILE_MANAGER = "nemo";
 
     xdg.mimeApps.defaultApplications = helpers.assignMimeFromDesktop fileRollerDesktopPath [ "org.gnome.FileRoller.desktop" ]
         // { "inode/directory" = [ "nemo.desktop" ]; };

@@ -8,5 +8,7 @@ in
     programs.firefox.enable = true;
 
     home.sessionVariables.BROWSER = "firefox";
+    systemd.user.sessionVariables.BROWSER = "firefox";
+
     xdg.mimeApps.defaultApplications = helpers.assignMimeFromDesktop firefoxDesktopPath [ "firefox.desktop" ];
 }
