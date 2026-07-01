@@ -41,6 +41,12 @@ in
             (pkgs.writeShellScriptBin "game-run" ''
                 [[ $# -eq 0 ]] && exit 1
 
+                if [[ -n "$GAMESCOPE_WAYLAND_DISPLAY" ]] \
+                    || [[ "$XDG_CURRENT_DESKTOP" == "gamescope" ]]; then
+                    unset MANGOHUD
+                    unset MANGOHUD_DLSYM
+                fi
+
                 cmd=()
                 ${lib.optionalString gamemodeCfg.enable "cmd+=(gamemoderun)"}
                 ${
