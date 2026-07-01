@@ -1,8 +1,4 @@
-{ pkgs, config, lib, ... }:
-let
-    imeCfg = config.i18n.inputMethod;
-in
-{
+{ pkgs, config, lib, ... }: {
     config = lib.mkIf config.truong-btw.enable (lib.mkMerge [
         {
             i18n.inputMethod = {
@@ -40,17 +36,5 @@ in
                 };
             };
         }
-
-        # fix fcitx5 does not work properly with some apps. Eg: xdg-desktop-portal-gtk
-        (lib.mkIf (imeCfg.enable && imeCfg.type == "fcitx5") {
-            home.sessionVariables = {
-                GTK_IM_MODULE = "fcitx";
-                QT_IM_MODULE = "fcitx";
-            };
-            systemd.user.sessionVariables = {
-                GTK_IM_MODULE = "fcitx";
-                QT_IM_MODULE = "fcitx";
-            };
-        })
     ]);
 }
