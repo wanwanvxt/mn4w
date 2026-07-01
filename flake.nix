@@ -14,10 +14,10 @@
             getChildDirs = path:
                 let content = builtins.readDir path;
                 in builtins.attrNames (nixpkgs.lib.filterAttrs (name: type: type == "directory") content);
-            hostNames = getChildDirs ./modules/hosts;
+            hostNames = getChildDirs ./hosts;
             hosts = builtins.listToAttrs (map (name: {
                 inherit name;
-                value = import ./modules/hosts/${name};
+                value = import ./hosts/${name};
             }) hostNames);
 
             nixosConfigurations = builtins.mapAttrs (hostName: hostConfig:
@@ -34,12 +34,7 @@
                 }
             ) hosts;
 
-            myPkgs = import ./pkgs;
-            overlays = myPkgs // {
-                default = nixpkgs.lib.composeManyExtensions (builtins.attrValues myPkgs);
-            };
+            overlays.default = import ./overlays;
         in
-        {
-            inherit nixosConfigurations overlays;
-        };
+        { inherit nixosConfigurations overlays; };
 }
