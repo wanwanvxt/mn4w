@@ -1,4 +1,9 @@
-{ config, lib, ... }: {
+{ pkgs, config, lib, ... }:
+let
+    gamemodeCfg = config.programs.gamemode;
+    nvidiaCfg = config.hardware.nvidia;
+in
+{
     config = lib.mkIf config.truong-btw.enable {
         programs = {
             steam = {
@@ -31,6 +36,25 @@
                 };
             };
         };
+
+        environment.systemPackages = [
+            (pkgs.writeShellScriptBin "game-run" ''
+                [[ $# -eq 0 ]] && exit 1
+
+                cmd=()
+                ${lib.optionalString gamemodeCfg.enable "cmd+=(gamemoderun)"}
+                ${
+                    lib.optionalString
+                        (nvidiaCfg.enabled
+                        && nvidiaCfg.prime.offload.enable
+                        && nvidiaCfg.prime.offload.enableOffloadCmd)
+                        "cmd+=(${nvidiaCfg.prime.offload.offloadCmdMainProgram})"
+                }
+                cmd+=("$@")
+
+                exec "''${cmd[@]}"
+            '')
+        ];
 
         zramSwap = {
             enable = true;
