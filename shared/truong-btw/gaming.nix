@@ -8,17 +8,6 @@ in
         programs = {
             steam = {
                 enable = true;
-                package = pkgs.steam.override {
-                    extraEnv = {
-                        http_proxy = "";
-                        https_proxy = "";
-                        all_proxy = "";
-                        HTTP_PROXY = "";
-                        HTTPS_PROXY = "";
-                        ALL_PROXY = "";
-                    };
-                };
-
                 localNetworkGameTransfers.openFirewall = true;
                 remotePlay.openFirewall = true;
                 dedicatedServer.openFirewall = true;

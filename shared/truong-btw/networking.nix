@@ -1,38 +1,53 @@
-{ pkgs, config, lib, ... }:
+{ config, lib, ... }:
 let
-    localProxyAddr = "127.0.0.1:8080";
+    firewallCfg = config.networking.firewall;
+    zapretCfg = config.services.zapret;
 in
 {
     config = lib.mkIf config.truong-btw.enable {
         networking = {
-            proxy.default = "http://${localProxyAddr}";
-            nftables.enable = true;
             firewall.enable = true;
+            nftables = {
+                enable = true;
+                ruleset = "" +
+                    (lib.optionalString zapretCfg.enable (
+                        let
+                            httpParams = lib.optionalString (zapretCfg.httpMode == "first") "ct original packets 1-6 ";
+                            udpPorts = lib.concatStringsSep ", " zapretCfg.udpPorts;
+                            qnum = toString zapretCfg.qnum;
+                        in
+                        ''
+                            table inet zapret {
+                                chain mangle_postrouting {
+                                    type filter hook postrouting priority mangle; policy accept;
+
+                                    mark & 0x40000000 == 0x40000000 accept
+
+                                    meta l4proto tcp tcp dport 443 ct original packets 1-6 queue num ${qnum} bypass
+
+                                    ${lib.optionalString zapretCfg.httpSupport
+                                        ''meta l4proto tcp tcp dport 80 ${httpParams}queue num ${qnum} bypass''}
+                                    ${lib.optionalString (zapretCfg.udpSupport && zapretCfg.udpPorts != [])
+                                        ''meta l4proto udp udp dport { ${udpPorts} } queue num ${qnum} bypass''}
+                                }
+                            }
+                        ''
+                    ));
+            };
+
             networkmanager = {
                 enable = true;
                 wifi.backend = "iwd";
             };
         };
 
-        systemd.services = {
-            spoofdpi = {
-                description = "SpoofDPI - Simple and fast anti-censorship tool";
-                after = [ "network.target" ];
-                wantedBy = [ "multi-user.target" ];
-                serviceConfig = {
-                    ExecStart = "${pkgs.spoofdpi}/bin/spoofdpi --listen-addr ${localProxyAddr} --dns-mode https --dns-https-url https://1.1.1.1/dns-query";
-                    Restart = "on-failure";
-                };
-            };
-
-            nix-daemon.environment = {
-                http_proxy  = lib.mkForce "";
-                https_proxy = lib.mkForce "";
-                all_proxy   = lib.mkForce "";
-                HTTP_PROXY  = lib.mkForce "";
-                HTTPS_PROXY = lib.mkForce "";
-                ALL_PROXY   = lib.mkForce "";
-            };
+        services.zapret = {
+            enable = true;
+            configureFirewall = firewallCfg.backend == "iptables";
+            params = [
+                "--dpi-desync=multisplit"
+                "--dpi-desync-split-pos=2"
+            ];
         };
 
         location.provider = "geoclue2";
