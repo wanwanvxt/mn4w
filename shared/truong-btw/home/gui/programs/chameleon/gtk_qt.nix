@@ -25,6 +25,11 @@ in
                         then "Papirus-Dark" else "Papirus-Light";
                     package = pkgs.papirus-icon-theme;
                 };
+
+                gtk3.extraConfig = {
+                    gtk-button-images = 1;
+                    gtk-menu-images = 1;
+                };
             };
 
             home.sessionVariables.ADW_DISABLE_PORTAL = "1";
