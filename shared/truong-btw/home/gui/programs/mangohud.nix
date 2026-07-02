@@ -10,6 +10,7 @@
                 font_size = "18";
                 text_outline = true;
 
+                fps_sampling_period = 1000;
                 fps_limit= [ 0 60 75 120 144 165 240 ];
                 fps_limit_method = "late";
 
