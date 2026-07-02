@@ -133,6 +133,7 @@ hl.config({
         animate_manual_resizes = false,
         animate_mouse_windowdragging = false,
         disable_autoreload = true,
+        focus_on_activate = true,
         background_color = "#222222",
         close_special_on_empty = true,
         middle_click_paste = true,
