@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ config, lib, ... }:
 let
     homeDir = config.home.homeDirectory;
 in
@@ -23,7 +23,5 @@ in
 
             mimeApps.enable = true;
         };
-
-        home.packages = [ pkgs.xdg-utils ];
     };
 }
