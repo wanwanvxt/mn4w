@@ -33,6 +33,16 @@ local dispatchRouteLayouts = function(routes)
     end
 end
 
+local magnifier = function(offset)
+    local current = hl.get_config("cursor.zoom_factor")
+    if offset == nil then offset = 0 end
+
+    local value = current + offset
+    value = math.max(1, value)
+
+    hl.config({ cursor = { zoom_factor = value } })
+end
+
 -- workspace bindings
 hl.bind(keys(mainMod, "GRAVE"), hl.dsp.workspace.toggle_special())
 for i = 1, 10 do
@@ -127,7 +137,7 @@ hl.bind("XF86AudioPrev",         hl.dsp.exec_cmd(playerctl .. " previous"),   { 
 hl.bind("XF86AudioNext",         hl.dsp.exec_cmd(playerctl .. " next"),       { repeating = true, locked = true })
 
 -- misc
-hl.bind(keys(mainMod, "MINUS"),      hl.dsp.exec_cmd(hyprScriptsPath .. "/magnifier -0.2"), { repeating = true })
-hl.bind(keys(mainMod, "EQUAL"),      hl.dsp.exec_cmd(hyprScriptsPath .. "/magnifier +0.2"), { repeating = true })
-hl.bind(keys(mainMod, "mouse_up"),   hl.dsp.exec_cmd(hyprScriptsPath .. "/magnifier -0.2"))
-hl.bind(keys(mainMod, "mouse_down"), hl.dsp.exec_cmd(hyprScriptsPath .. "/magnifier +0.2"))
+hl.bind(keys(mainMod, "MINUS"),      function() magnifier(-0.2) end, { repeating = true })
+hl.bind(keys(mainMod, "EQUAL"),      function() magnifier(0.2) end, { repeating = true })
+hl.bind(keys(mainMod, "mouse_up"),   function() magnifier(-0.2) end)
+hl.bind(keys(mainMod, "mouse_down"), function() magnifier(0.2) end)
