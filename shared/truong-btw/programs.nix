@@ -24,6 +24,7 @@
             };
 
             pathsToLink = [
+                "/libexec"
                 "/share/applications"
                 "/share/xdg-desktop-portal"
                 "/share/color-schemes"
