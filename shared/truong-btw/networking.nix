@@ -41,13 +41,17 @@ in
             };
         };
 
-        services.zapret = {
-            enable = true;
-            configureFirewall = firewallCfg.backend == "iptables";
-            params = [
-                "--dpi-desync=multisplit"
-                "--dpi-desync-split-pos=2"
-            ];
+        services = {
+            zapret = {
+                enable = true;
+                configureFirewall = firewallCfg.backend == "iptables";
+                params = [
+                    "--dpi-desync=multisplit"
+                    "--dpi-desync-split-pos=2"
+                ];
+            };
+
+            zerotierone.enable = true;
         };
 
         location.provider = "geoclue2";
