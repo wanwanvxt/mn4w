@@ -5,6 +5,7 @@ let
     homeCfg = config.home;
     xdgCfg = config.xdg;
     wireplumberCfg = osConfig.services.pipewire.wireplumber;
+    hyprshotCfg = config.programs.hyprshot;
 
     hyprScriptFiles = lib.mapAttrs' (name: value: {
         name = "hypr/scripts/${name}";
@@ -47,7 +48,7 @@ in
             };
             xwayland.enable = true;
             extraConfig = ''
-                _G.hyprConfigPath = "${xdgCfg.configHome}/hypr"
+                _G.hyprConfigDir = "${xdgCfg.configHome}/hypr"
 
                 _G.mainMod = "SUPER";
 
@@ -58,6 +59,7 @@ in
                 _G.brightnessctl = "${lib.getExe pkgs.brightnessctl}" or "brightnessctl"
                 _G.wpctl         = "${wireplumberCfg.package}/bin/wpctl" or "wpctl"
                 _G.playerctl     = "${lib.getExe pkgs.playerctl}" or "playerctl"
+                _G.hyprshot      = "${lib.getExe hyprshotCfg.package}" or "hyprshot"
 
 
                 local modules = require("hyprland.init")
@@ -96,5 +98,10 @@ in
                 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
             '';
         });
+
+        programs.hyprshot = {
+            enable = hyprlandCfg.enable;
+            saveLocation = "${xdgCfg.userDirs.pictures or "~"}/screenshots";
+        };
     };
 }

@@ -1,4 +1,4 @@
-local hyprConfigPath = _G.hyprConfigPath or "~/.config/hypr"
+local hyprConfigDir = _G.hyprConfigDir or "~/.config/hypr"
 
 local mainMod = _G.mainMod or "SUPER"
 
@@ -6,11 +6,12 @@ local terminal    = _G.terminal or ""
 local browser     = _G.browser or ""
 local fileManager = _G.fileManager or ""
 
-local hyprScriptsPath = hyprConfigPath .. "/scripts"
+local hyprScriptsDir = hyprConfigDir .. "/scripts"
 
 local brightnessctl = _G.brightnessctl or "brightnessctl"
 local wpctl         = _G.wpctl or "wpctl"
 local playerctl     = _G.playerctl or "playerctl"
+local hyprshot      = _G.hyprshot or "hyprshot"
 
 ---@param ... any
 ---@return string
@@ -123,9 +124,9 @@ hl.bind(keys(mainMod, "F2"), function()
 end)
 
 -- default apps
-hl.bind(keys(mainMod, "T"), hl.dsp.exec_cmd(hyprScriptsPath .. "/spawn " .. terminal))
-hl.bind(keys(mainMod, "B"), hl.dsp.exec_cmd(hyprScriptsPath .. "/spawn " .. browser))
-hl.bind(keys(mainMod, "E"), hl.dsp.exec_cmd(hyprScriptsPath .. "/spawn " .. fileManager))
+hl.bind(keys(mainMod, "T"), hl.dsp.exec_cmd(hyprScriptsDir .. "/spawn " .. terminal))
+hl.bind(keys(mainMod, "B"), hl.dsp.exec_cmd(hyprScriptsDir .. "/spawn " .. browser))
+hl.bind(keys(mainMod, "E"), hl.dsp.exec_cmd(hyprScriptsDir .. "/spawn " .. fileManager))
 
 -- media
 hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd(brightnessctl .. " --class=backlight set 2%+"), { repeating = true, locked = true })
@@ -138,6 +139,10 @@ hl.bind("XF86AudioPlay",         hl.dsp.exec_cmd(playerctl .. " play-pause"), { 
 hl.bind("XF86AudioStop",         hl.dsp.exec_cmd(playerctl .. " stop"),       { repeating = true, locked = true })
 hl.bind("XF86AudioPrev",         hl.dsp.exec_cmd(playerctl .. " previous"),   { repeating = true, locked = true })
 hl.bind("XF86AudioNext",         hl.dsp.exec_cmd(playerctl .. " next"),       { repeating = true, locked = true })
+--#
+hl.bind("PRINT",               hl.dsp.exec_cmd(hyprshot .. " -m active -m output"))
+hl.bind(keys("ALT", "PRINT"),  hl.dsp.exec_cmd(hyprshot .. " -m active -m window"))
+hl.bind(keys("CTRL", "PRINT"), hl.dsp.exec_cmd(hyprshot .. " -z -m region"))
 
 -- misc
 hl.bind(keys(mainMod, "MINUS"),      function() magnifier(-0.2) end, { repeating = true })
