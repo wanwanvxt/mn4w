@@ -10,22 +10,6 @@ local Bufnr = {
     hl = "Comment",
 }
 
-local FileIcon = {
-    init = function(self)
-        local filetype = vim.api.nvim_get_option_value("filetype", { buf = self.bufnr })
-        self.icon, self.icon_hl = require("mini.icons").get("filetype", filetype)
-    end,
-    condition = function()
-        return not vim.g.is_tty
-    end,
-    provider = function(self)
-        return string.format("%s ", self.icon)
-    end,
-    hl = function(self)
-        return self.icon_hl
-    end,
-}
-
 local FileName = {
     provider = function(self)
         local filename = vim.fn.fnamemodify(self.filepath, ":t")
@@ -75,7 +59,6 @@ local FileBlock = {
         end
     end,
     {
-        FileIcon,
         FileName,
         FileFlags,
     },

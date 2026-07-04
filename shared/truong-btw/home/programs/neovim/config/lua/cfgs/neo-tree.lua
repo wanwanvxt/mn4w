@@ -57,10 +57,15 @@ utils.lazy({
                     enabled = true,
                     highlight = "NonText",
                     use_filtered_colors = true,
-                    folder_open = utils.symbol_guard("", "[-]"),
-                    folder_closed = utils.symbol_guard("", "[+]"),
-                    folder_empty = utils.symbol_guard("", "[+]"),
-                    folder_empty_open = utils.symbol_guard("", "[+]"),
+                    folder_open = "-",
+                    folder_closed = "/",
+                    folder_empty = "/",
+                    folder_empty_open = "-",
+                    provider = function(icon, node, _)
+                        if node.type == "file" or node.type == "terminal" then
+                            icon.text = "*"
+                        end
+                    end,
                     default = "*",
                 },
                 name = {

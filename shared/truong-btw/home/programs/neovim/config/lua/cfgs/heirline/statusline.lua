@@ -54,24 +54,6 @@ local ViMode = {
     end,
 }
 
-local FileIcon = {
-    init = function(self)
-        local filetype = vim.bo.filetype
-        self.icon, self.icon_hl = require("mini.icons").get("filetype", filetype)
-    end,
-    condition = function()
-        return not vim.g.is_tty
-    end,
-    provider = function(self)
-        return string.format("%s ", self.icon)
-    end,
-    hl = function(self)
-        if hl_conds.is_active() then
-            return self.icon_hl
-        end
-    end,
-}
-
 local FilePath = {
     provider = function(self)
         local relpath = vim.fn.fnamemodify(self.filepath, ":.")
@@ -97,6 +79,23 @@ local FilePath = {
         end
 
         return head .. tail
+    end,
+}
+
+local FileType = {
+    init = function(self)
+        self.ft = vim.bo.filetype
+        if self.ft == "" then
+            self.ft = "unknown"
+        end
+    end,
+    provider = function(self)
+        return string.format(" [%s]", self.ft)
+    end,
+    hl = function()
+        if hl_conds.is_active() then
+            return { fg = "green" }
+        end
     end,
 }
 
@@ -138,7 +137,7 @@ local FileEcoding = {
         end
     end,
     provider = function(self)
-        return string.format("[%s %s]", self.enc, self.fmt)
+        return string.format(" [%s %s]", self.enc, self.fmt)
     end,
     hl = function()
         if hl_conds.is_active() then
@@ -153,10 +152,9 @@ local FileBlock = {
     end,
     {
         shared.Space,
-        FileIcon,
         FilePath,
+        FileType,
         FileFlags,
-        shared.Space,
         FileEcoding,
         shared.Space,
     },
@@ -173,7 +171,7 @@ local LSPActive = {
     update = { "LspAttach", "LspDetach" },
     hl = { fg = "purple" },
     provider = function(self)
-        return string.format("%s%s", utils.symbol_guard(" ", ""), table.concat(self.servers, " "))
+        return string.format("[%s]", table.concat(self.servers, " "))
     end,
 }
 
@@ -193,28 +191,26 @@ local Diagnostics = {
     },
     update = { "DiagnosticChanged", "BufEnter" },
     {
-        shared.Space,
         {
             provider = function(self)
-                return string.format("%s%d", utils.symbol_guard(" ", "E."), self.errors)
+                return string.format("E.%d", self.errors)
             end,
             hl = { fg = "diag_error" },
         },
         shared.Space,
         {
             provider = function(self)
-                return string.format("%s%d", utils.symbol_guard(" ", "W."), self.warns)
+                return string.format("W.%d", self.warns)
             end,
             hl = { fg = "diag_warn" },
         },
         shared.Space,
         {
             provider = function(self)
-                return string.format("%s%d", utils.symbol_guard(" ", "I."), self.infos+self.hints)
+                return string.format("I.%d", self.infos+self.hints)
             end,
             hl = { fg = "diag_info" },
         },
-        shared.Space,
     },
 }
 
