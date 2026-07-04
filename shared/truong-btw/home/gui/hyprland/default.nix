@@ -30,7 +30,6 @@ in
 
         xdg.portal = {
             enable = true;
-            xdgOpenUsePortal = true;
             extraPortals = with pkgs; [
                 hyprlandCfg.finalPortalPackage
                 xdg-desktop-portal-gtk
