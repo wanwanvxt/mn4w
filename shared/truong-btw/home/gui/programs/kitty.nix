@@ -2,6 +2,11 @@
 let
     gtkCfg = config.gtk;
     helpers = import ../../helpers.nix lib;
+
+    dconfTermSettings = {
+        exec = "xdg-terminal-exec";
+        exec-arg = "--";
+    };
 in
 {
     config = lib.mkIf config.truong-btw.enable {
@@ -27,5 +32,10 @@ in
 
         home.sessionVariables.TERMINAL = "kitty";
         xdg.mimeApps.defaultApplications = helpers.assignMimes "x-scheme-handler/terminal" [ "kitty.desktop" ];
+
+        dconf.settings = {
+            "org/gnome/desktop/default-applications/terminal" = dconfTermSettings;
+            "org/cinnamon/desktop/default-applications/terminal" = dconfTermSettings;
+        };
     };
 }
