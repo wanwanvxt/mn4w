@@ -6,7 +6,7 @@
             noto-fonts-cjk-serif
             noto-fonts-color-emoji
             liberation_ttf
-            nerd-fonts._0xproto
+            googlesans-code
         ];
 
         fonts.fontconfig = {
@@ -14,7 +14,7 @@
             defaultFonts = {
                 serif     = [ "Noto Serif" ];
                 sansSerif = [ "Noto Sans" ];
-                monospace = [ "0xProto Nerd Font" "Noto Sans Mono" ];
+                monospace = [ "Google Sans Code" "Noto Sans Mono" ];
                 emoji     = [ "Noto Color Emoji" ];
             };
         };
