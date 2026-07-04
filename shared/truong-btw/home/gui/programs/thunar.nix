@@ -30,6 +30,7 @@ in
         xdg.mimeApps.defaultApplications = helpers.assignMimes [
             "inode/directory"
             "x-scheme-handler/file"
+            "x-scheme-handler/trash"
         ] [ "thunar.desktop" ];
     };
 }
