@@ -1,0 +1,17 @@
+{
+    "runtime": {
+        "version": "LuaJIT"
+    },
+    "workspace": {
+        "checkThirdParty": false,
+        "library": [
+            "/etc/profiles/per-user/${env:USER}/share/hypr/stubs"
+        ]
+    },
+    "diagnostics": {
+        "globals": [ "hl" ]
+    },
+    "telemetry": {
+        "enable": false
+    }
+}

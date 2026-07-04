@@ -28,6 +28,7 @@
                 "/share/xdg-desktop-portal"
                 "/share/color-schemes"
                 "/share/fish"
+                "/share/hypr/stubs"
             ];
         };
 

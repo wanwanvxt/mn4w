@@ -12,9 +12,10 @@ local brightnessctl = _G.brightnessctl or "brightnessctl"
 local wpctl         = _G.wpctl or "wpctl"
 local playerctl     = _G.playerctl or "playerctl"
 
+---@param ... any
+---@return string
 local keys = function(...)
     local args = {...}
-    local res = ""
 
     for i = 1, #args do
         args[i] = tostring(args[i])
@@ -23,6 +24,7 @@ local keys = function(...)
     return table.concat(args, "+")
 end
 
+---@param routes table
 local dispatchRouteLayouts = function(routes)
     local ws = hl.get_active_workspace()
     if ws then
@@ -33,6 +35,7 @@ local dispatchRouteLayouts = function(routes)
     end
 end
 
+---@param offset number
 local magnifier = function(offset)
     local current = hl.get_config("cursor.zoom_factor")
     if offset == nil then offset = 0 end
