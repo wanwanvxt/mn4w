@@ -7,9 +7,12 @@ hl.window_rule({ float = true, match = { class = "^(?i)thunar$", title = "negati
 hl.window_rule({ float = true, match = { class = "^xarchiver$", title = "^Extract files$" } })
 hl.window_rule({ float = true, match = { class = "^steam$", title = "^(Steam Settings|Add Non-Steam Game)$" } })
 hl.window_rule({ float = true, size = {1000, 800}, match = { class = "^xdg-desktop-portal-gtk$" } })
-hl.window_rule({ float = true, size = {1000, 800}, match = { class = "^firefox$", title = "^(About Mozilla Firefox|Library)$" } })
-hl.window_rule({ float = true, size = {400, 800}, match = { class = "^steam$", title = "^Friends List$" } })
+hl.window_rule({ float = true, size = {1000, 800}, match = { class = "^firefox$", title = "^Library$" } })
+hl.window_rule({ float = true, size = {800, 400},  match = { class = "^firefox$", title = "^About Mozilla Firefox$" } })
+hl.window_rule({ float = true, size = {400, 800},  match = { class = "^steam$", title = "^Friends List$" } })
 hl.window_rule({
     float = true, pin = true, size = {640, 360}, move = {"(monitor_w-700)", "(monitor_h-400)"},
     match = { class = "^firefox$", title = "^Picture-in-Picture$" }
 })
+
+hl.layer_rule({ no_anim = true, match = { namespace = "^(selection|hyprpicker)$" } })
