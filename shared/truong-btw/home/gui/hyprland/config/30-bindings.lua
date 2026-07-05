@@ -57,7 +57,7 @@ hl.bind(keys(mainMod, "COMMA"),  hl.dsp.focus({ workspace = "e-1" }), { repeatin
 hl.bind(keys(mainMod, "PERIOD"), hl.dsp.focus({ workspace = "e+1" }), { repeating = true })
 
 -- window bindings
-hl.bind(keys(mainMod, "ESCAPE"),   hl.dsp.window.close())
+hl.bind(keys(mainMod, "Q"),        hl.dsp.window.close())
 hl.bind(keys("ALT", "F4"),         hl.dsp.window.close())
 hl.bind(keys(mainMod, "F"),        hl.dsp.window.fullscreen({ mode = "fullscreen" }))
 hl.bind(keys(mainMod, "ALT", "F"), hl.dsp.window.fullscreen_state({ internal = 0, client = 2, action = "toggle" }))
