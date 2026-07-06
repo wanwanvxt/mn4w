@@ -1,11 +1,17 @@
 { config, lib, ... }:
 let
     gtkCfg = config.gtk;
+    xdgTermExecCfg = config.xdg.terminal-exec;
+    kittyCfg = config.programs.kitty;
     helpers = import ../../helpers.nix lib;
 
     dconfTermSettings = {
-        exec = "xdg-terminal-exec";
-        exec-arg = "--";
+        exec =
+            if xdgTermExecCfg.enable
+            then "xdg-terminal-exec" else "";
+        exec-arg =
+            if xdgTermExecCfg.enable
+            then "--" else "";
     };
 in
 {
@@ -27,11 +33,13 @@ in
 
         xdg.terminal-exec = {
             enable = true;
-            settings.default = [ "kitty.desktop" ];
+            settings.default = lib.optional kittyCfg.enable "kitty.desktop";
         };
 
-        home.sessionVariables.TERMINAL = "kitty";
-        xdg.mimeApps.defaultApplications = helpers.assignMimes "x-scheme-handler/terminal" [ "kitty.desktop" ];
+        home.sessionVariables.TERMINAL = lib.optionalString kittyCfg.enable "kitty";
+        xdg.mimeApps.defaultApplications =
+            lib.optionalAttrs kittyCfg.enable
+            (helpers.assignMimes "x-scheme-handler/terminal" [ "kitty.desktop" ]);
 
         dconf.settings = {
             "org/gnome/desktop/default-applications/terminal" = dconfTermSettings;

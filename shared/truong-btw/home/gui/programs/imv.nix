@@ -14,6 +14,7 @@ in
         };
 
         xdg.mimeApps.defaultApplications =
-            helpers.assignMimesFromDesktop imvDesktopPath [ "imv.desktop" ];
+            lib.optionalAttrs imvCfg.enable
+            (helpers.assignMimesFromDesktop imvDesktopPath [ "imv.desktop" ]);
     };
 }

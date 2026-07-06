@@ -23,7 +23,7 @@ in
                     set -g fish_greeting
                 '';
             };
-            kitty.settings.shell = "fish";
+            kitty.settings.shell = lib.optionalString fishCfg.enable "fish";
 
             fzf = {
                 enable = true;

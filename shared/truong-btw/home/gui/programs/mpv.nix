@@ -24,6 +24,7 @@ in
         };
 
         xdg.mimeApps.defaultApplications =
-            helpers.assignMimesFromDesktop desktopPath [ "mpv.desktop" ];
+            lib.optionalString mpvCfg.enable
+            (helpers.assignMimesFromDesktop desktopPath [ "mpv.desktop" ]);
     };
 }
