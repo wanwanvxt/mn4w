@@ -1,12 +1,10 @@
-local hyprConfigDir = _G.hyprConfigDir or "~/.config/hypr"
-
 local mainMod = _G.mainMod or "SUPER"
 
-local terminal    = _G.terminal or ""
-local browser     = _G.browser or ""
-local fileManager = _G.fileManager or ""
+local terminal    = _G.terminal or "$TERMINAL"
+local browser     = _G.browser or "$BROWSER"
+local fileManager = _G.fileManager or "$FILE_MANAGER"
 
-local hyprScriptsDir = hyprConfigDir .. "/scripts"
+local rofi        = _G.rofi or "rofi"
 
 local brightnessctl = _G.brightnessctl or "brightnessctl"
 local wpctl         = _G.wpctl or "wpctl"
@@ -34,6 +32,11 @@ local dispatchRouteLayouts = function(routes)
             hl.dispatch(cb)
         end
     end
+end
+
+---@param cmd string
+local spawnCmd = function(cmd)
+    return string.format("uwsm check is-active && exec uwsm app -- %s || exec %s", cmd, cmd)
 end
 
 ---@param offset number
@@ -124,9 +127,11 @@ hl.bind(keys(mainMod, "F2"), function()
 end)
 
 -- default apps
-hl.bind(keys(mainMod, "T"), hl.dsp.exec_cmd(hyprScriptsDir .. "/spawn " .. terminal))
-hl.bind(keys(mainMod, "B"), hl.dsp.exec_cmd(hyprScriptsDir .. "/spawn " .. browser))
-hl.bind(keys(mainMod, "E"), hl.dsp.exec_cmd(hyprScriptsDir .. "/spawn " .. fileManager))
+hl.bind(keys(mainMod, "T"), hl.dsp.exec_cmd(spawnCmd(terminal)))
+hl.bind(keys(mainMod, "B"), hl.dsp.exec_cmd(spawnCmd(browser)))
+hl.bind(keys(mainMod, "E"), hl.dsp.exec_cmd(spawnCmd(fileManager)))
+--#
+hl.bind(keys(mainMod, "R"), hl.dsp.exec_cmd("pkill rofi || " .. rofi .. " -show drun"))
 
 -- media
 hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd(brightnessctl .. " --class=backlight set 2%+"), { repeating = true, locked = true })

@@ -3,19 +3,17 @@ let
     hyprlandCfg = config.wayland.windowManager.hyprland;
     uwsmCfg = osConfig.programs.uwsm;
     homeCfg = config.home;
-    xdgCfg = config.xdg;
+    rofiCfg = config.programs.rofi;
     wireplumberCfg = osConfig.services.pipewire.wireplumber;
     hyprshotCfg = config.programs.hyprshot;
-
-    hyprScriptFiles = lib.mapAttrs' (name: value: {
-        name = "hypr/scripts/${name}";
-        value = {
-            source = ./scripts/${name};
-            executable = true;
-        };
-    }) (lib.filterAttrs (name: type: type == "regular") (builtins.readDir ./scripts));
 in
 {
+    imports = [
+        ./uwsm.nix
+        ./hyprshot.nix
+        ./rofi.nix
+    ];
+
     config = lib.mkIf config.truong-btw.enable {
         home.pointerCursor = {
             enable = true;
@@ -48,19 +46,18 @@ in
             };
             xwayland.enable = true;
             extraConfig = ''
-                _G.hyprConfigDir = "${xdgCfg.configHome}/hypr"
-
                 _G.mainMod = "SUPER";
 
                 _G.terminal    = "${homeCfg.sessionVariables.TERMINAL or ""}";
                 _G.browser     = "${homeCfg.sessionVariables.BROWSER or ""}";
                 _G.fileManager = "${homeCfg.sessionVariables.FILE_MANAGER or ""}";
 
-                _G.brightnessctl = "${lib.getExe pkgs.brightnessctl}" or "brightnessctl"
-                _G.wpctl         = "${wireplumberCfg.package}/bin/wpctl" or "wpctl"
-                _G.playerctl     = "${lib.getExe pkgs.playerctl}" or "playerctl"
-                _G.hyprshot      = "${lib.getExe hyprshotCfg.package}" or "hyprshot"
+                _G.rofi        = "${lib.getExe (if rofiCfg.enable then rofiCfg.finalPackage else pkgs.rofi)}"
 
+                _G.brightnessctl = "${lib.getExe pkgs.brightnessctl}"
+                _G.wpctl         = "${if wireplumberCfg.enable then wireplumberCfg.package else pkgs.wireplumber}/bin/wpctl"
+                _G.playerctl     = "${lib.getExe pkgs.playerctl}"
+                _G.hyprshot      = "${lib.getExe (if hyprshotCfg.enable then hyprshotCfg.package else pkgs.hyprshot)}"
 
                 local modules = require("hyprland.init")
                 for _, module in ipairs(modules) do
@@ -77,31 +74,6 @@ in
 
         xdg.configFile = (lib.optionalAttrs hyprlandCfg.enable {
             "hypr/hyprland".source = ./config;
-        }) //
-        (lib.optionalAttrs hyprlandCfg.enable hyprScriptFiles) //
-        (lib.optionalAttrs uwsmCfg.enable {
-            "uwsm/default-id".text = "hyprland-uwsm.desktop";
-
-            "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
-            "uwsm/env.d/10-wl.conf".text = ''
-                export GDK_BACKEND=wayland,x11,*
-                export CLUTTER_BACKEND=wayland
-                export QT_QPA_PLATFORM=wayland;xcb
-                export ELECTRON_OZONE_PLATFORM_HINT=auto
-                export PROTON_ENABLE_WAYLAND=1
-                export SDL_VIDEODRIVER=wayland
-                export SDL_VIDEO_DRIVER=wayland
-
-                export QT_AUTO_SCREEN_SCALE_FACTOR=1
-            '';
-            "uwsm/env-hyprland".text = ''
-                export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-            '';
         });
-
-        programs.hyprshot = {
-            enable = hyprlandCfg.enable;
-            saveLocation = "${xdgCfg.userDirs.pictures or "~"}/screenshots";
-        };
     };
 }
