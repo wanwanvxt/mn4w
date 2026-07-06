@@ -3,9 +3,11 @@ let
     nemoCfg = config.programs.nemo or { enable = false; };
     helpers = import ../../helpers.nix lib;
     pkgXarchiver = pkgs.xarchiver.overrideAttrs (oldAttrs: {
+        nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [ pkgs.makeWrapper ];
+
         postFixup = (oldAttrs.postFixup or "") + ''
             wrapProgram $out/bin/xarchiver \
-                --suffix PATH : ${lib.makeBinPath [ pkgs.rar ]}
+                --prefix PATH : ${lib.makeBinPath [ pkgs.rar ]}
         '';
     });
 in
