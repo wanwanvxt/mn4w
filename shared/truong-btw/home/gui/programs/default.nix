@@ -11,7 +11,7 @@
         ./ime.nix
         ./kitty.nix
         ./firefox.nix
-        ./thunar.nix
+        ./nemo.nix
         ./imv.nix
         ./mpv.nix
         ./mangohud.nix
