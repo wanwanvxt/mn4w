@@ -16,7 +16,9 @@ in
                 if gtkCfg.enable
                 then "${gtkCfg.font.name} ${toString gtkCfg.font.size}"
                 else "sans 12";
-            terminal = lib.optionalString xdgTermExecCfg.enable "xdg-terminal-exec";
+            terminal =
+                if xdgTermExecCfg.enable then (lib.getExe xdgTermExecCfg.package)
+                else (config.home.sessionVariables.TERMINAL or "");
             cycle = false;
             location = "center";
             modes = [ "drun" "calc" ];

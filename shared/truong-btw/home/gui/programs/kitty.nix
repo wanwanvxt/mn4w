@@ -6,8 +6,10 @@ let
     helpers = import ../../helpers.nix lib;
 
     dconfTermSettings = {
-        exec = lib.optionalString xdgTermExecCfg.enable "xdg-terminal-exec";
-        exec-arg = lib.optionalString xdgTermExecCfg.enable "--";
+        exec =
+            if xdgTermExecCfg.enable then (lib.getExe xdgTermExecCfg.package)
+            else (config.home.sessionVariables.TERMINAL or "");
+        exec-arg = "--";
     };
 in
 {
