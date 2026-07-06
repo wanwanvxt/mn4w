@@ -1,5 +1,6 @@
 { pkgs, config, lib, ... }:
 let
+    neovimCfg = config.programs.neovim;
     helpers = import ../../helpers.nix lib;
 in
 {
@@ -17,17 +18,19 @@ in
             vimdiffAlias = true;
         };
 
-        xdg.configFile = {
+        xdg.configFile = lib.optionalAttrs neovimCfg.enable {
             "nvim/init.lua".source = ./config/init.lua;
             "nvim/lua".source      = ./config/lua;
         };
 
-        xdg.mimeApps.defaultApplications = helpers.assignMimes [
-            "text/plain"
-            "application/x-shellscript"
-            "application/x-sh"
-            "application/json"
-            "application/xml"
-        ] [ "nvim.desktop" ];
+        xdg.mimeApps.defaultApplications =
+            lib.optionalAttrs neovimCfg.enable
+            (helpers.assignMimes [
+                "text/plain"
+                "application/x-shellscript"
+                "application/x-sh"
+                "application/json"
+                "application/xml"
+            ] [ "nvim.desktop" ]);
     };
 }

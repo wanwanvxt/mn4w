@@ -72,8 +72,8 @@ in
             '';
         };
 
-        xdg.configFile = (lib.optionalAttrs hyprlandCfg.enable {
+        xdg.configFile = lib.optionalAttrs hyprlandCfg.enable {
             "hypr/hyprland".source = ./config;
-        });
+        };
     };
 }

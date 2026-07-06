@@ -1,6 +1,6 @@
 { pkgs, config, lib, ... }:
 let
-    chameleonCfg = config.programs.chameleon;
+    chameleonCfg = config.programs.chameleon or { enable = false; };
 in
 {
     imports = [
