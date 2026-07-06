@@ -14,7 +14,7 @@ in
             enable = true;
             settings = {
                 font_family = "monospace";
-                font_size = gtkCfg.font.size or 12;
+                font_size = if gtkCfg.enable then (gtkCfg.font.size or 12) else 12;
                 remember_window_size = false;
                 background_opacity = 0.8;
                 background_blur = 1;
