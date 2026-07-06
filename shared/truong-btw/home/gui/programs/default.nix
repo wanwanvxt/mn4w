@@ -4,6 +4,8 @@
             qbittorrent
             protonplus
         ];
+
+        services.polkit-gnome.enable = true;
     };
 
     imports = [
