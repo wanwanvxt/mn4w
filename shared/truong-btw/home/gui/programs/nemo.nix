@@ -2,6 +2,12 @@
 let
     nemoCfg = config.programs.nemo or { enable = false; };
     helpers = import ../../helpers.nix lib;
+    pkgXarchiver = pkgs.xarchiver.overrideAttrs (oldAttrs: {
+        postFixup = (oldAttrs.postFixup or "") + ''
+            wrapProgram $out/bin/xarchiver \
+                --suffix PATH : ${lib.makeBinPath [ pkgs.rar ]}
+        '';
+    });
 in
 {
     options.programs.nemo.enable = lib.mkEnableOption "";
@@ -9,15 +15,10 @@ in
     config = lib.mkIf config.truong-btw.enable {
         programs.nemo.enable = true;
 
-        home.packages = lib.optionals nemoCfg.enable (with pkgs; [
-            nemo
-            (xarchiver.overrideAttrs (oldAttrs: {
-                postFixup = (oldAttrs.postFixup or "") + ''
-                    wrapProgram $out/bin/xarchiver \
-                        --suffix PATH : ${lib.makeBinPath [ pkgs.rar ]}
-                '';
-            }))
-        ]);
+        home.packages = lib.optionals nemoCfg.enable [
+            pkgs.nemo
+            pkgXarchiver
+        ];
 
         home.sessionVariables.FILE_MANAGER = lib.optionalString nemoCfg.enable "nemo";
         xdg.mimeApps.defaultApplications =
@@ -39,5 +40,51 @@ in
                 "set-resolution.nemo_action"
             ];
         };
+
+        xdg.dataFile =
+        let
+            xarchiverBin = lib.getExe pkgXarchiver;
+        in
+            lib.optionalAttrs nemoCfg.enable {
+                "nemo/actions/xarchiver-create.nemo_action".text = ''
+                    [Nemo Action]
+                    Active=true
+                    Name=Create Archive...
+                    Comment=Create an archive with Xarchiver
+                    Icon-Name=xarchiver
+
+                    Selection=notnone
+                    Extensions=any;
+                    Quote=double
+
+                    Exec=${xarchiverBin} --compress=%F
+                '';
+                "nemo/actions/xarchiver-extract-here.nemo_action".text = ''
+                    [Nemo Action]
+                    Active=true
+                    Name=Extract Here
+                    Comment=Extract archive here with Xarchiver
+                    Icon-Name=xarchiver
+
+                    Selection=notnone
+                    Extensions=nodirs;
+                    Quote=double
+
+                    Exec=sh -c 'cd %P && for file in %F; do ${xarchiverBin} --ensure-directory "$file"; done'
+                '';
+                "nemo/actions/xarchiver-extract-to.nemo_action".text = ''
+                    [Nemo Action]
+                    Active=true
+                    Name=Extract To...
+                    Comment=Extract archive to another folder with Xarchiver
+                    Icon-Name=xarchiver
+
+                    Selection=notnone
+                    Extensions=nodirs;
+                    Quote=double
+
+                    Exec=sh -c '[ $# -eq 1 ] && exec ${xarchiverBin} --extract "$1" || exec ${xarchiverBin} --multi-extract "$@"' sh %F
+                '';
+            };
     };
 }
