@@ -5,9 +5,9 @@ let
     kittyCfg = config.programs.kitty;
     helpers = import ../../helpers.nix lib;
 
-    dconfTermSettings = lib.optionalAttrs xdgTermExecCfg.enable {
-        exec = "xdg-terminal-exec";
-        exec-arg = "--";
+    dconfTermSettings = {
+        exec = lib.optionalString xdgTermExecCfg.enable "xdg-terminal-exec";
+        exec-arg = lib.optionalString xdgTermExecCfg.enable "--";
     };
 in
 {
@@ -40,6 +40,8 @@ in
         dconf.settings = {
             "org/gnome/desktop/default-applications/terminal" = dconfTermSettings;
             "org/cinnamon/desktop/default-applications/terminal" = dconfTermSettings;
+            "org/gnome/desktop/applications/terminal" = dconfTermSettings;
+            "org/cinnamon/desktop/applications/terminal" = dconfTermSettings;
         };
     };
 }
