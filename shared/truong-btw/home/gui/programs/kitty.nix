@@ -5,13 +5,9 @@ let
     kittyCfg = config.programs.kitty;
     helpers = import ../../helpers.nix lib;
 
-    dconfTermSettings = {
-        exec =
-            if xdgTermExecCfg.enable
-            then "xdg-terminal-exec" else "";
-        exec-arg =
-            if xdgTermExecCfg.enable
-            then "--" else "";
+    dconfTermSettings = lib.optionalAttrs xdgTermExecCfg.enable {
+        exec = "xdg-terminal-exec";
+        exec-arg = "--";
     };
 in
 {
