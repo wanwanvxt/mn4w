@@ -7,9 +7,10 @@
             url = "github:nix-community/home-manager/release-26.05";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        nix-std.url = "github:chessai/nix-std";
     };
 
-    outputs = { self, nixpkgs, home-manager, ... } @ inputs:
+    outputs = { self, nixpkgs, home-manager, nix-std, ... } @ inputs:
         let
             getChildDirs = path:
                 let content = builtins.readDir path;
@@ -22,9 +23,11 @@
 
             nixosConfigurations = builtins.mapAttrs (hostName: hostConfig:
                 nixpkgs.lib.nixosSystem {
+                    specialArgs = { inherit nix-std; };
                     modules = [
                         home-manager.nixosModules.home-manager
                         {
+                            home-manager.extraSpecialArgs = { inherit nix-std; };
                             system.stateVersion = "26.05";
                             nixpkgs.overlays = [ self.overlays.default ];
                             networking.hostName = hostName;
