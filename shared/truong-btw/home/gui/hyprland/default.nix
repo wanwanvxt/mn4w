@@ -55,7 +55,7 @@ in
                 _G.rofi        = "${lib.getExe (if rofiCfg.enable then rofiCfg.finalPackage else pkgs.rofi)}"
 
                 _G.brightnessctl = "${lib.getExe pkgs.brightnessctl}"
-                _G.wpctl         = "${if wireplumberCfg.enable then wireplumberCfg.package else pkgs.wireplumber}/bin/wpctl"
+                _G.wpctl         = "${lib.getExe' (if wireplumberCfg.enable then wireplumberCfg.package else pkgs.wireplumber) "wpctl"}"
                 _G.playerctl     = "${lib.getExe pkgs.playerctl}"
                 _G.hyprshot      = "${lib.getExe (if hyprshotCfg.enable then hyprshotCfg.package else pkgs.hyprshot)}"
 
