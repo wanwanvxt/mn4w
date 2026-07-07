@@ -2,6 +2,7 @@
 let
     hyprlandCfg = config.wayland.windowManager.hyprland;
     gtkCfg = config.gtk;
+    cliphistCfg = config.services.cliphist;
     xdgTermExecCfg = config.xdg.terminal-exec;
 in
 {
@@ -21,7 +22,14 @@ in
                 else (config.home.sessionVariables.TERMINAL or "");
             cycle = false;
             location = "center";
-            modes = [ "drun" "calc" ];
+            modes = [
+                "drun" "calc"
+                "clipboard:${
+                    lib.getExe'
+                    (if cliphistCfg.enable then cliphistCfg.package else pkgs.cliphist)
+                    "cliphist-rofi"
+                }"
+            ];
             extraConfig = {
                 run-command =
                     let

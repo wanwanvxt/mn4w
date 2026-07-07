@@ -3,7 +3,10 @@ let
     hyprlandCfg = config.wayland.windowManager.hyprland;
     uwsmCfg = osConfig.programs.uwsm;
     homeCfg = config.home;
+
     rofiCfg = config.programs.rofi;
+    cliphistCfg = config.services.cliphist;
+
     wireplumberCfg = osConfig.services.pipewire.wireplumber;
     hyprshotCfg = config.programs.hyprshot;
 in
@@ -11,6 +14,7 @@ in
     imports = [
         ./modules/uwsm.nix
         ./modules/rofi.nix
+        ./modules/cliphist.nix
         ./modules/hyprshot.nix
     ];
 
@@ -52,7 +56,8 @@ in
                 _G.browser     = "${homeCfg.sessionVariables.BROWSER or ""}";
                 _G.fileManager = "${homeCfg.sessionVariables.FILE_MANAGER or ""}";
 
-                _G.rofi        = "${lib.getExe (if rofiCfg.enable then rofiCfg.finalPackage else pkgs.rofi)}"
+                _G.rofi         = "${lib.getExe (if rofiCfg.enable then rofiCfg.finalPackage else pkgs.rofi)}"
+                _G.cliphistRofi = "${lib.getExe' (if cliphistCfg.enable then cliphistCfg.package else pkgs.cliphist) "cliphist-rofi"}"
 
                 _G.brightnessctl = "${lib.getExe pkgs.brightnessctl}"
                 _G.wpctl         = "${lib.getExe' (if wireplumberCfg.enable then wireplumberCfg.package else pkgs.wireplumber) "wpctl"}"
