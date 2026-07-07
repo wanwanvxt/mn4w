@@ -9,9 +9,9 @@ let
 in
 {
     imports = [
-        ./uwsm.nix
-        ./hyprshot.nix
-        ./rofi.nix
+        ./modules/uwsm.nix
+        ./modules/rofi.nix
+        ./modules/hyprshot.nix
     ];
 
     config = lib.mkIf config.truong-btw.enable {
