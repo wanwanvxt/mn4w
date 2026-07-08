@@ -11,7 +11,7 @@ let
 
         postBuild = ''
             wrapProgram $out/bin/grim \
-                --run "${lib.getExe pkgs.libcanberra-gtk3} -i camera-shutter &"
+                --run "${lib.getExe pkgs.xdg-sound} camera-shutter &"
         '';
     };
 in
