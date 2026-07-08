@@ -241,6 +241,11 @@ local DefaultStatusLine = {
 }
 
 return {
+    condition = function()
+        local disable_fts = { "neo-tree" };
+        local cur_ft = vim.bo.filetype
+        return not vim.tbl_contains(disable_fts, cur_ft)
+    end,
     hl = function()
         return hl_conds.is_active() and "StatusLine" or "StatusLineNC"
     end,
