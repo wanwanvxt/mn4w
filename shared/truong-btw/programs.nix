@@ -44,5 +44,7 @@
             udisks2.enable = true;
             gnome.gnome-keyring.enable = true;
         };
+
+        xdg.sounds.enable = true;
     };
 }
