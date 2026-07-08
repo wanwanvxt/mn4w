@@ -23,7 +23,7 @@ in
             cycle = true;
             location = "center";
             modes = [
-                "drun" "calc"
+                "drun" "calc" "window"
                 "clipboard:${
                     lib.getExe'
                     (if cliphistCfg.enable then cliphistCfg.package else pkgs.cliphist)
