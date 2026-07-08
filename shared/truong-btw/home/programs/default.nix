@@ -10,6 +10,8 @@ in
             trash-cli
             jq
         ];
+
+        services.playerctld.enable = true;
     };
 
     imports = [

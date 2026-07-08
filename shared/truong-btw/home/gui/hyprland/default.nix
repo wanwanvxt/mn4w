@@ -8,6 +8,7 @@ let
     cliphistCfg = config.services.cliphist;
 
     wireplumberCfg = osConfig.services.pipewire.wireplumber;
+    playerctlCfg = config.services.playerctld;
     hyprshotCfg = config.programs.hyprshot;
 in
 {
@@ -61,7 +62,7 @@ in
 
                 _G.brightnessctl = "${lib.getExe pkgs.brightnessctl}"
                 _G.wpctl         = "${lib.getExe' (if wireplumberCfg.enable then wireplumberCfg.package else pkgs.wireplumber) "wpctl"}"
-                _G.playerctl     = "${lib.getExe pkgs.playerctl}"
+                _G.playerctl     = "${lib.getExe (if playerctlCfg.enable then playerctlCfg.package else pkgs.playerctl)}"
                 _G.hyprshot      = "${lib.getExe (if hyprshotCfg.enable then hyprshotCfg.package else pkgs.hyprshot)}"
 
                 local modules = require("hyprland.init")
