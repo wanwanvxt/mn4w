@@ -26,6 +26,7 @@
             pathsToLink = [
                 "/share/applications"
                 "/share/xdg-desktop-portal"
+                "/share/sounds"
                 "/share/color-schemes"
                 "/share/fish"
                 "/share/hypr"
@@ -44,7 +45,5 @@
             udisks2.enable = true;
             gnome.gnome-keyring.enable = true;
         };
-
-        xdg.sounds.enable = true;
     };
 }
