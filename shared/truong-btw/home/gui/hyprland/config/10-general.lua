@@ -75,7 +75,7 @@ hl.config({
         follow_mouse_shrink = 10,
         follow_mouse_threshold = 20,
 
-        focus_on_close = 1,
+        focus_on_close = 2,
         mouse_refocus = true,
         float_switch_override_focus = 1,
         special_fallthrough = false,
