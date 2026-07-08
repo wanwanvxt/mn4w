@@ -35,6 +35,7 @@ local dispatchRouteLayouts = function(routes)
 end
 
 ---@param cmd string
+---@return string
 local spawnCmd = function(cmd)
     return string.format("uwsm check is-active && exec uwsm app -- %s || exec %s", cmd, cmd)
 end
