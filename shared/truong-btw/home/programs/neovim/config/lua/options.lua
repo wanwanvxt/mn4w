@@ -35,6 +35,7 @@ vim.opt.autoread    = true  -- reload file if changed outside
 vim.opt.confirm     = true  -- ask for confirmation
 vim.opt.updatetime  = 500   -- CursorHold events
 vim.opt.timeoutlen  = 500   -- mapped key timeout
+vim.o.exrc = true -- enable auto execute
 
 -- clipboard
 if vim.fn["provider#clipboard#Executable"]() ~= "" then
