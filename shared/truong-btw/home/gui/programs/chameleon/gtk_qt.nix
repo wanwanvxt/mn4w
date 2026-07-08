@@ -60,9 +60,6 @@ in
                 };
             };
 
-            home.sessionVariables.ADW_DISABLE_PORTAL = "1";
-            systemd.user.sessionVariables.ADW_DISABLE_PORTAL = "1";
-
         # Qt
             home.packages = with pkgs; [
                 # papirus-icon-theme

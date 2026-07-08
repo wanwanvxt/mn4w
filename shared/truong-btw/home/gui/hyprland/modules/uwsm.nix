@@ -18,6 +18,7 @@ in
                 export SDL_VIDEO_DRIVER=wayland
 
                 export QT_AUTO_SCREEN_SCALE_FACTOR=1
+                export ADW_DISABLE_PORTAL=1
             '';
             "uwsm/env-hyprland".text = ''
                 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
