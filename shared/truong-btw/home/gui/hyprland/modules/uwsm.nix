@@ -1,10 +1,10 @@
 { osConfig, config, lib, ... }:
 let
-    uwsmCfg = osConfig.programs.uwsm;
+    uwsmSysCfg = osConfig.programs.uwsm;
 in
 {
     config = lib.mkIf config.truong-btw.enable {
-        xdg.configFile = lib.optionalAttrs uwsmCfg.enable {
+        xdg.configFile = lib.optionalAttrs uwsmSysCfg.enable {
             "uwsm/default-id".text = "hyprland-uwsm.desktop";
 
             "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";

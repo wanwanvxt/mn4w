@@ -1,6 +1,7 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, osConfig, config, lib, ... }:
 let
     xdgCfg = config.xdg;
+    dconfSysCfg = osConfig.programs.dconf;
 in
 {
     config = lib.mkIf config.truong-btw.enable {
@@ -11,6 +12,7 @@ in
             jq
         ];
 
+        dconf.enable = dconfSysCfg.enable;
         services.playerctld.enable = true;
     };
 
