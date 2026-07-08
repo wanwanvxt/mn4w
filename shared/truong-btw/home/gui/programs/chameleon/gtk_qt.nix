@@ -2,6 +2,15 @@
 let
     gtkCfg = config.gtk;
     qtCfg = config.qt;
+    dconfCfg = config.dconf;
+
+    eventSoundsEnabled = dconfCfg.settings."org/gnome/desktop/sound".event-sounds or false;
+    eventSoundsTheme   = dconfCfg.settings."org/gnome/desktop/sound".theme-name or "freedesktop";
+    pkgSoundsTheme = lib.mkIf (dconfCfg.enable && eventSoundsEnabled) (
+        if (eventSoundsTheme == "freedesktop") then pkgs.sound-theme-freedesktop
+        else if (eventSoundsTheme == "oxygen") then pkgs.kdePackages.oxygen-sounds
+        else null
+    );
 in
 {
     config = lib.mkIf config.truong-btw.enable {
@@ -32,6 +41,13 @@ in
                 };
             };
 
+            dconf.settings = {
+                "org/gnome/desktop/sound" = {
+                    event-sounds = true;
+                    theme-name = "oxygen";
+                };
+            };
+
             home.sessionVariables.ADW_DISABLE_PORTAL = "1";
             systemd.user.sessionVariables.ADW_DISABLE_PORTAL = "1";
 
@@ -40,6 +56,7 @@ in
                 # papirus-icon-theme
                 # libsForQt5.qt5t
                 # qt6Packages.qt6ct
+                pkgSoundsTheme
                 kdePackages.qqc2-desktop-style
                 darkly
             ];
