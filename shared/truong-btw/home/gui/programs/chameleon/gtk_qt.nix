@@ -35,10 +35,22 @@ in
                     package = pkgs.papirus-icon-theme;
                 };
 
-                gtk3.extraConfig = {
-                    gtk-button-images = 1;
-                    gtk-menu-images = 1;
+                gtk4.extraConfig = {
+                    gtk-enable-event-sounds = eventSoundsEnabled;
+                    gtk-sound-theme-name = eventSoundsTheme;
                 };
+
+                gtk3.extraConfig = {
+                    gtk-button-images = true;
+                    gtk-menu-images = true;
+                    gtk-enable-event-sounds = eventSoundsEnabled;
+                    gtk-sound-theme-name = eventSoundsTheme;
+                };
+
+                gtk2.extraConfig = ''
+                    gtk-enable-event-sounds = ${toString eventSoundsEnabled}
+                    gtk-sound-theme-name = "${eventSoundsTheme}"
+                '';
             };
 
             dconf.settings = {
