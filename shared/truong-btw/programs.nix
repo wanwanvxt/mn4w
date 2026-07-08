@@ -26,7 +26,6 @@
             pathsToLink = [
                 "/share/applications"
                 "/share/xdg-desktop-portal"
-                "/share/sounds"
                 "/share/color-schemes"
                 "/share/fish"
                 "/share/hypr"
