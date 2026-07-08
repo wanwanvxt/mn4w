@@ -20,7 +20,7 @@ in
             terminal =
                 if xdgTermExecCfg.enable then (lib.getExe xdgTermExecCfg.package)
                 else (config.home.sessionVariables.TERMINAL or "");
-            cycle = false;
+            cycle = true;
             location = "center";
             modes = [
                 "drun" "calc"
