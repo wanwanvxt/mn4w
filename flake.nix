@@ -38,6 +38,12 @@
             ) hosts;
 
             overlays.default = import ./overlays;
+
+            forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
+            packages = forAllSystems (system:
+                let pkgs = import nixpkgs { inherit system; };
+                in import ./packages { inherit pkgs; }
+            );
         in
-        { inherit nixosConfigurations overlays; };
+        { inherit nixosConfigurations overlays packages; };
 }

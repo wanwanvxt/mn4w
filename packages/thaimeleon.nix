@@ -21,6 +21,7 @@ rustPlatform.buildRustPackage rec {
         description = "Automatically generate a color scheme from a wallpaper!";
         homepage = "https://codeberg.org/thairanaru/thaimeleon";
         license = lib.licenses.agpl3Only;
+        platforms = lib.platforms.linux;
         mainProgram = "thaimeleon";
     };
 }
