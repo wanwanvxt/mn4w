@@ -8,6 +8,11 @@ in
         programs = {
             steam = {
                 enable = true;
+                package = pkgs.steam.override {
+                    extraPkgs = pkgs: []
+                        ++ lib.optional gamemodeCfg.enable pkgs.gamemode;
+                };
+
                 localNetworkGameTransfers.openFirewall = true;
                 remotePlay.openFirewall = true;
                 dedicatedServer.openFirewall = true;
@@ -48,14 +53,17 @@ in
                     unset MANGOHUD_DLSYM
                 fi
 
+                ${lib.optionalString gamemodeCfg.enable
+                    ''LD_PRELOAD="$LD_PRELOAD:/usr/lib32/libgamemode.so.0:/usr/lib64/libgamemode.so.0"''
+                }
+
                 cmd=()
                 ${lib.optionalString gamemodeCfg.enable "cmd+=(gamemoderun)"}
-                ${
-                    lib.optionalString
-                        (nvidiaCfg.enabled
+                ${lib.optionalString
+                    (nvidiaCfg.enabled
                         && nvidiaCfg.prime.offload.enable
                         && nvidiaCfg.prime.offload.enableOffloadCmd)
-                        "cmd+=(${nvidiaCfg.prime.offload.offloadCmdMainProgram})"
+                    "cmd+=(${nvidiaCfg.prime.offload.offloadCmdMainProgram})"
                 }
                 cmd+=("$@")
 
