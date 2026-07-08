@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
     networkmanagerCfg = config.networking.networkmanager;
+    gamemodeCfg = config.programs.gamemode;
 in
 {
     imports = [
@@ -18,7 +19,8 @@ in
     users.users.truong = {
         isNormalUser = true;
         extraGroups = [ "wheel" ]
-            ++ lib.optional networkmanagerCfg.enable "networkmanager";
+            ++ lib.optional networkmanagerCfg.enable "networkmanager"
+            ++ lib.optional gamemodeCfg.enable "gamemode";
     };
 
     home-manager = {
