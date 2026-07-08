@@ -38,14 +38,5 @@ utils.lazy({
                 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { silent = true, buffer = bufnr, desc = "choose code action" })
             end
         })
-
-        local servers = require("cfgs.lsp.servers")
-        for name, cfg in pairs(servers) do
-            local cmd = cfg.cmd[1]
-            if utils.is_executable(cmd) then
-                vim.lsp.config(name, cfg)
-                vim.lsp.enable(name)
-            end
-        end
     end,
 })
