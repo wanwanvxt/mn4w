@@ -146,8 +146,8 @@ hl.bind("XF86AudioStop",         hl.dsp.exec_cmd(playerctl .. " stop"),       { 
 hl.bind("XF86AudioPrev",         hl.dsp.exec_cmd(playerctl .. " previous"),   { repeating = true, locked = true })
 hl.bind("XF86AudioNext",         hl.dsp.exec_cmd(playerctl .. " next"),       { repeating = true, locked = true })
 --#
-hl.bind("PRINT",               hl.dsp.exec_cmd(hyprshot .. " -m active -m output"))
-hl.bind(keys("ALT", "PRINT"),  hl.dsp.exec_cmd(hyprshot .. " -m active -m window"))
+hl.bind("PRINT",               hl.dsp.exec_cmd(hyprshot .. " -z -m active -m output"))
+hl.bind(keys("ALT", "PRINT"),  hl.dsp.exec_cmd(hyprshot .. " -z -m active -m window"))
 hl.bind(keys("CTRL", "PRINT"), hl.dsp.exec_cmd(hyprshot .. " -z -m region"))
 
 -- misc
